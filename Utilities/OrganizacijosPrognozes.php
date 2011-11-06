@@ -264,17 +264,18 @@
             
             $menesiai: Array
             (
-                [0] => "2012-01"
-                [1] => "2012-02"
+                [6] => "2012-06"
+                [12] => "2012-12"
             )
         */
         static public function getPrognozuojamiMenesiai()
         {
             $menesiai = array();
-            $menuo = date('Y-m-d');
+            $data = date('Y-m-d');
             for ($i = 1; $i <= 12; $i++){
-                $menuo = date('Y-m', strtotime("$menuo + 1 months"));
-                $menesiai[] = $menuo;
+                $data = date('Y-m', strtotime("$data + 1 months"));
+                $menuo = (int)date('m', strtotime("$data"));
+                $menesiai[$menuo] = $data;
             }
             
             return($menesiai);

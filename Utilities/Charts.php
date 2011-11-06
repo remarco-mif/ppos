@@ -252,7 +252,7 @@
                             $data[$i] = 0;
 
                         foreach ($padalinys as $menuo => $valandos){
-                            $data[$menesiai[$menuo - 1]] = $valandos;
+                            $data[$menesiai[$menuo]] = $valandos;
                         }
                         
                         //tikrinama ar rastas padalinys yra rodomu padaliniu sarase
@@ -309,7 +309,7 @@
                         foreach ($menesiai as $i)
                             $data[$i] = 0;
                         foreach ($is as $menuo => $valandos){
-                            $data[$menesiai[$menuo - 1]] = $valandos;
+                            $data[$menesiai[$menuo]] = $valandos;
                         }
                         
                         //tikrinama ar rastas padalinys yra rodomu padaliniu sarase
