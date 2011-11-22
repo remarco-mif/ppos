@@ -2,7 +2,7 @@
 
     session_start();
 
-    include("Includes.php");
+    include("../Includes.php");
     
     $IS = IS::select("idIS > 0");
     p($IS);
