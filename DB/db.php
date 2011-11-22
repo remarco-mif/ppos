@@ -3,20 +3,18 @@
     class db{
 
         public $con = null;
+        private $dbname = null;
         static private $tables = null;
 
         public function __construct(){
             $dbhost = 'localhost';
             $dbuser = 'root';
-
-            $dbpass = 'julius';
-            //komentaras
-            
+            $dbpass = 'ppos';
 
             $this->con = mysql_connect($dbhost, $dbuser, $dbpass) or die ('Error connecting to mysql!');
 
-            $dbname = 'PPOS';
-            mysql_select_db($dbname);
+            $this->dbname = 'PPOS';
+            mysql_select_db($this->dbname);
             mysql_query("SET NAMES utf8");
             db::$tables = $this->analyzeTables();
         }
@@ -42,9 +40,9 @@
         }
 
         private function analyzeTables(){
-            $data = db::select("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'thoinex_thoinex'");
+            $data = db::select("SELECT TABLE_NAME FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = '".$this->dbname."'");
             foreach ($data['data'] as $d){
-                $columns = db::select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE (TABLE_NAME = '".$d['TABLE_NAME']."') AND (TABLE_SCHEMA = 'thoinex_thoinex')");
+                $columns = db::select("SELECT * FROM INFORMATION_SCHEMA.COLUMNS WHERE (TABLE_NAME = '".$d['TABLE_NAME']."') AND (TABLE_SCHEMA = '".$this->dbname."')");
                 $columnsArray = array();
                 foreach($columns['data'] as $c){
                     $columnsArray[] = $c['COLUMN_NAME'];

@@ -8,8 +8,10 @@
     require_once("Security/Session.php");
 
     require_once("Validation/ObjectValidation.php");
-
+    require_once("Validation/ISValidation.php");
+    
     require_once("DbObject/LinkTable.php");
     require_once("DbObject/MysqlObject.php");
+    require_once("DbObject/IS.php");
 
 ?>

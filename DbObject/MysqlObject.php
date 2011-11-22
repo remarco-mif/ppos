@@ -18,7 +18,7 @@
         }
         
         static public function isExist($tableName, $column, $value){
-            $data = db::select("SELECT * FROM ".$tableName." WHERE ".$column." = '".$value."'");
+            $data = db::select("SELECT * FROM `".$tableName."` WHERE ".$column." = '".$value."'");
             if(sizeof($data['data']) > 0){
                 return true;
             }else{
@@ -27,7 +27,7 @@
         }
 
         protected function receiveFromDb($column, $tableName, $idName){
-            $data = db::select("SELECT ".$column." FROM ".$tableName." WHERE ".$idName." = ".$this->ID);
+            $data = db::select("SELECT ".$column." FROM `".$tableName."` WHERE ".$idName." = ".$this->ID);
             if($data['bool']){
                 if(sizeof($data['data']) > 0){
                     return $data['data'][0][$column];
@@ -42,7 +42,7 @@
         }
 
         protected function receiveListFromDb($column, $tableName, $idName){
-            $result = mysql_query("SELECT ".$column." FROM ".$tableName." WHERE ".$idName." = ".(int)$this->ID);
+            $result = mysql_query("SELECT ".$column." FROM `".$tableName."` WHERE ".$idName." = ".(int)$this->ID);
             $data = array();
             if($result){
                 while($row = mysql_fetch_assoc($result)){
@@ -56,7 +56,7 @@
         }
 
         static public function getMaxID($tableID, $tableName){
-            $data = db::select("SELECT MAX(".$tableID.") as Max FROM ".$tableName);
+            $data = db::select("SELECT MAX(".$tableID.") as Max FROM `".$tableName."`");
             if($data['bool']){
                 if(sizeof($data['data']) > 0){
                     return $data['data'][0]['Max'];
@@ -71,7 +71,7 @@
         }
 
         static protected function select($query, $class){ // Use virtual table
-            $result = mysql_query("SELECT id".$class." FROM Virtual".$class." WHERE ".$query);
+            $result = mysql_query("SELECT id".$class." FROM `".$class."` WHERE ".$query);
             $data = array();
             if($result){
                 while($row = mysql_fetch_assoc($result)){
@@ -85,7 +85,7 @@
         }
         
         static protected function delete($id, $class){
-            $result = mysql_query("DELETE FROM `thoinex_thoinex`.`".$class."` WHERE `".$class."`.`id".$class."` = ".(int)$id);
+            $result = mysql_query("DELETE FROM `PPOS`.`".$class."` WHERE `".$class."`.`id".$class."` = ".(int)$id);
             if($result){
                 return true;
             }else{
@@ -100,7 +100,7 @@
             $class = repairSqlInjection($class);
             
             $dbTables = db::getTables();
-            $query = "UPDATE `thoinex_thoinex`.`".$class."` SET ";
+            $query = "UPDATE `PPOS`.`".$class."` SET ";
             $set = "";
             foreach($data as $key => $value){
                 if(in_array($key, $dbTables[$class])){
@@ -111,7 +111,7 @@
             }
             $query .= substr($set, 0, -2);
             $query .= " WHERE id" . $class . " = ".(int)$id;
-
+            
             $result = mysql_query($query);
             if($result){
                 return true;
