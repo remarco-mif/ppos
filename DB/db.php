@@ -9,7 +9,8 @@
             $dbhost = 'localhost';
             $dbuser = 'root';
             $dbpass = 'julius';
-
+            //komentaras
+            
             $this->con = mysql_connect($dbhost, $dbuser, $dbpass) or die ('Error connecting to mysql');
 
             $dbname = 'PPOS';
