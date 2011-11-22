@@ -8,7 +8,7 @@
         public function __construct(){
             $dbhost = 'localhost';
             $dbuser = 'root';
-            $dbpass = 'julius';
+            $dbpass = 'juliusss';
 
             $this->con = mysql_connect($dbhost, $dbuser, $dbpass) or die ('Error connecting to mysql');
 
