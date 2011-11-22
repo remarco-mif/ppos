@@ -8,6 +8,8 @@
         <?php
         
             phpinfo();
+            
+            echo "Juliussss";
         
         ?>
     </body>
