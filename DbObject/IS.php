@@ -14,8 +14,9 @@ class IS extends MysqlObject{
     }
 
     static public function insertToDB($kodas, $pavadinimas){
-        $name = repairSqlInjection($kodas);
-        $name = repairSqlInjection($pavadinimas);
+        $kodas = repairSqlInjection($kodas);
+        $pavadinimas = repairSqlInjection($pavadinimas);
+        
         if(!ISValidation::validateKodas($kodas)){
             IS::$error = "Neteisingas kodo formatas!";
             return false;

@@ -19,11 +19,11 @@ ENGINE = InnoDB;
 -- Table `PPOS`.`ParamosPriemones`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `PPOS`.`ParamosPriemones` (
-  `idParamosPriemoniuKryptys` INT NOT NULL AUTO_INCREMENT ,
+  `idParamosPriemones` INT NOT NULL AUTO_INCREMENT ,
   `Kodas` VARCHAR(45) NOT NULL ,
   `Pavadinimas` TEXT NOT NULL ,
   `Kryptis` INT NOT NULL ,
-  PRIMARY KEY (`idParamosPriemoniuKryptys`) ,
+  PRIMARY KEY (`idParamosPriemones`) ,
   UNIQUE INDEX `Kodas_UNIQUE` (`Kodas` ASC) ,
   INDEX `fk_ParamosPriemones_ParamosPriemoniuKryptys` (`Kryptis` ASC) ,
   CONSTRAINT `fk_ParamosPriemones_ParamosPriemoniuKryptys`
@@ -31,7 +31,9 @@ CREATE  TABLE IF NOT EXISTS `PPOS`.`ParamosPriemones` (
     REFERENCES `PPOS`.`ParamosPriemoniuKryptys` (`idParamosPriemoniuKryptys` )
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-ENGINE = InnoDB;
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = big5
+COLLATE = big5_bin;
 
 
 -- -----------------------------------------------------
@@ -92,7 +94,7 @@ CREATE  TABLE IF NOT EXISTS `PPOS`.`ParamosAdministravimas` (
   PRIMARY KEY (`ParamosPriemone`, `Padalinys`) ,
   CONSTRAINT `fk_ParamosAdministravimas_ParamosPriemones1`
     FOREIGN KEY (`ParamosPriemone` )
-    REFERENCES `PPOS`.`ParamosPriemones` (`idParamosPriemoniuKryptys` )
+    REFERENCES `PPOS`.`ParamosPriemones` (`idParamosPriemones` )
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `fk_ParamosAdministravimas_Padaliniai1`
@@ -116,7 +118,7 @@ CREATE  TABLE IF NOT EXISTS `PPOS`.`ParamosKiekiai` (
   INDEX `fk_ParamosKiekiai_ParamosPriemones1` (`ParamosPriemone` ASC) ,
   CONSTRAINT `fk_ParamosKiekiai_ParamosPriemones1`
     FOREIGN KEY (`ParamosPriemone` )
-    REFERENCES `PPOS`.`ParamosPriemones` (`idParamosPriemoniuKryptys` )
+    REFERENCES `PPOS`.`ParamosPriemones` (`idParamosPriemones` )
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
