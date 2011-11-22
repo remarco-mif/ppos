@@ -8,7 +8,10 @@
         public function __construct(){
             $dbhost = 'localhost';
             $dbuser = 'root';
-            $dbpass = 'juliusss';
+
+            $dbpass = 'julius';
+            //komentaras
+            
 
             $this->con = mysql_connect($dbhost, $dbuser, $dbpass) or die ('Error connecting to mysql');
 
@@ -17,6 +20,8 @@
             mysql_query("SET NAMES utf8");
             db::$tables = $this->analyzeTables();
         }
+        
+        public function geras(){} 
 
         static public function select($query){
             $result = mysql_query($query);
