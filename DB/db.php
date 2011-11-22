@@ -20,8 +20,6 @@
             mysql_query("SET NAMES utf8");
             db::$tables = $this->analyzeTables();
         }
-        
-        public function geras(){} 
 
         static public function select($query){
             $result = mysql_query($query);
