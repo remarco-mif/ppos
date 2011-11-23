@@ -13,18 +13,18 @@
         }
 
         public function insert($var1, $var2){
-            $result = mysql_query("INSERT INTO `thoinex_thoinex`.`".$this->tableName."` (`".$this->var1."`, `".$this->var2."`) VALUES ('".$var1."', '".$var2."')");
+            $result = mysql_query("INSERT INTO `PPOS`.`".$this->tableName."` (`".$this->var1."`, `".$this->var2."`) VALUES ('".$var1."', '".$var2."')");
             if($result){
                 return true;
             }else{
-                ErrorMessages::setError(7, "insert('".$var1."', '".$var2."')", "LinkTable.php", "LinkTable");
+                ErrorMessages::setError(7, "insert('".$var1."', '".$var2."')", "LinkTable.php", "LinkTable", mysql_error());
                 return false;
             }
         }
 
         /*
         public function delete($column, $id){
-            $result = mysql_query("DELETE FROM `thoinex_thoinex`.`".$this->tableName."` WHERE `".$this->tableName."`.`".$column."` = ".(int)$id);
+            $result = mysql_query("DELETE FROM `PPOS`.`".$this->tableName."` WHERE `".$this->tableName."`.`".$column."` = ".(int)$id);
             if($result){
                 return true;
             }else{
@@ -34,7 +34,7 @@
         */
         
         public function delete($id1, $id2){
-            $result = mysql_query("DELETE FROM `thoinex_thoinex`.`".$this->tableName."` WHERE ".$this->tableName."." . $this->var1 . " = ".(int)$id1 . 
+            $result = mysql_query("DELETE FROM `PPOS`.`".$this->tableName."` WHERE ".$this->tableName."." . $this->var1 . " = ".(int)$id1 . 
                                   " AND " . $this->tableName."." . $this->var2 . " = ".(int)$id2);
             if($result){
                 return true;

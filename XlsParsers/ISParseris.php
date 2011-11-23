@@ -1,6 +1,6 @@
 <?php
     
-    class InformacineSitema
+    class InformacineSistema
     {
         public $kodas;
         public $pavadinimas;

@@ -2,7 +2,7 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
 
-CREATE SCHEMA IF NOT EXISTS `PPOS` DEFAULT CHARACTER SET latin1 COLLATE latin1_swedish_ci ;
+CREATE SCHEMA IF NOT EXISTS `PPOS` DEFAULT CHARACTER SET utf8 COLLATE utf8_lithuanian_ci ;
 USE `PPOS` ;
 
 -- -----------------------------------------------------
@@ -31,9 +31,7 @@ CREATE  TABLE IF NOT EXISTS `PPOS`.`ParamosPriemones` (
     REFERENCES `PPOS`.`ParamosPriemoniuKryptys` (`idParamosPriemoniuKryptys` )
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = big5
-COLLATE = big5_bin;
+ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------

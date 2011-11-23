@@ -3,6 +3,11 @@
     
     class ParamosAdministravimasParseris
     {
+        /*
+            return: 
+                Padalinys{kodas, paramosPriemones}
+                paramosPriemone{priemonesKodas, administravimoSanaudos}
+        */
         static public function rastiAdministravimoSanaudas($xlsData, $sheetNr)
         {
             $res = array();

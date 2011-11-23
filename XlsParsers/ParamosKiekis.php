@@ -1,5 +1,5 @@
 <?php
-    class ParamosKiekiai
+    class ParamosKiekis
     {
         public $priemonesKodas;
         public $paramosNuo;

@@ -22,5 +22,17 @@
     require_once("DbObject/ParamosPriemoniuKryptys.php");
     require_once("DbObject/ParamosPriemones.php");
     require_once("DbObject/ParamosAdministravimas.php");
+    
+    require_once("XlsParsers/excel_reader2.php");
+    require_once("XlsParsers/IS_PadaliniaiParseris.php");
+    require_once("XlsParsers/ISParseris.php");
+    require_once("XlsParsers/PadaliniaiParseris.php");
+    require_once("XlsParsers/Padalinys.php");
+    require_once("XlsParsers/ParamosAdministravimasParseris.php");
+    require_once("XlsParsers/ParamosKiekis.php");
+    require_once("XlsParsers/ParamosPriemone.php");
+    require_once("XlsParsers/ParamosPriemonesParseris.php");
+    require_once("XlsParsers/ParamosKiekiaiParseris.php");
+    require_once("Utilities/Importer.php");
 
 ?>

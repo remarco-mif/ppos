@@ -1,14 +1,19 @@
 <?php
-    require_once("ParamosKiekiai.php");
+    require_once("ParamosKiekis.php");
     
     class ParamosKiekiaiParseris
     {
+        
+        /*
+            return:
+                ParamosKiekis[]{priemonesKodas, paramosNuo, paramosIki, kiekis}
+        */
         static public function rastiParamosKiekius($xlsData, $sheetNr)
         {
             $res = array();
             
             for ($i = 2; $i <= $xlsData->rowcount($sheetNr); $i++){
-                $paramosKiekiai = new ParamosKiekiai();
+                $paramosKiekiai = new ParamosKiekis();
                 $paramosKiekiai->priemonesKodas = $xlsData->val($i, 1, $sheetNr);
                 $paramosKiekiai->paramosNuo = $xlsData->val($i, 2, $sheetNr);
                 $paramosKiekiai->paramosIki = $xlsData->val($i, 3, $sheetNr);
