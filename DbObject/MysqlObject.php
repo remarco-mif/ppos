@@ -42,14 +42,14 @@
         }
 
         protected function receiveListFromDb($column, $tableName, $idName){
-            $result = mysql_query("SELECT ".$column." FROM `".$tableName."` WHERE ".$idName." = ".(int)$this->ID);
+            $result = mysql_query("SELECT `".$column."` FROM `".$tableName."` WHERE `".$idName."` = ".(int)$this->ID);
             $data = array();
             if($result){
                 while($row = mysql_fetch_assoc($result)){
                     $data[] = $row[$column];
                 }
             }else{
-                ErrorMessages::setError(2, "receiveListFromDb('".$column."', '".$tableName."', '".$idName."')", "MysqlObject.php", "MysqlObject");
+                ErrorMessages::setError(2, "receiveListFromDb('".$column."', '".$tableName."', '".$idName."')", "MysqlObject.php", "MysqlObject", mysql_error());
                 MysqlObject::$error = mysql_error();
             }
             return $data;

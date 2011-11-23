@@ -1,1 +1,1 @@
-<?php    session_start();    require_once("../Includes.php");            $importer = new Importer("../psi.xls");    $importer->importParamosKiekiai();    p(ErrorMessages::getErrors());?>
+<?php    session_start();    require_once("../Includes.php");            $importer = new Importer("../psi.xls");    $importer->import();        p(ErrorMessages::getErrors());?>

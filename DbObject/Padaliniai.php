@@ -12,6 +12,10 @@ class Padaliniai extends MysqlObject{
     public function getPavadinimas(){
         return $this->receiveFromDb("Pavadinimas", $this->tableName, $this->tableID);
     }
+    
+    public function getIS(){
+        return $this->receiveListFromDb("IS", "IS_Padaliniai", "Padalinys");
+    }
 
     static public function insertToDB($kodas, $pavadinimas){
         $kodas = repairSqlInjection($kodas);
