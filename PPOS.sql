@@ -86,7 +86,7 @@ ENGINE = InnoDB;
 CREATE  TABLE IF NOT EXISTS `PPOS`.`ParamosAdministravimas` (
   `ParamosPriemone` INT NOT NULL ,
   `Padalinys` INT NOT NULL ,
-  `Valandos` INT NOT NULL ,
+  `Valandos` DECIMAL(11,1) NOT NULL ,
   INDEX `fk_ParamosAdministravimas_ParamosPriemones1` (`ParamosPriemone` ASC) ,
   INDEX `fk_ParamosAdministravimas_Padaliniai1` (`Padalinys` ASC) ,
   PRIMARY KEY (`ParamosPriemone`, `Padalinys`) ,
@@ -121,6 +121,83 @@ CREATE  TABLE IF NOT EXISTS `PPOS`.`ParamosKiekiai` (
     ON UPDATE CASCADE)
 ENGINE = InnoDB;
 
+
+-- -----------------------------------------------------
+-- Table `PPOS`.`User`
+-- -----------------------------------------------------
+CREATE  TABLE IF NOT EXISTS `PPOS`.`User` (
+  `Username` VARCHAR(32) NOT NULL ,
+  `Password` VARCHAR(256) NOT NULL ,
+  `Admin` TINYINT(1)  NOT NULL ,
+  PRIMARY KEY (`Username`) )
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Placeholder table for view `PPOS`.`PadaliniuParaiskuKiekis`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PPOS`.`PadaliniuParaiskuKiekis` (`Nuo` INT, `idPadaliniai` INT, `Kodas` INT, `Pavadinimas` INT, `"Paraiskos"` INT);
+
+-- -----------------------------------------------------
+-- Placeholder table for view `PPOS`.`IsParaiskuKiekis`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PPOS`.`IsParaiskuKiekis` (`Nuo` INT, `Kodas` INT, `Pavadinimas` INT, `"Paraiskos"` INT);
+
+-- -----------------------------------------------------
+-- Placeholder table for view `PPOS`.`PadaliniuValanduKiekis`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PPOS`.`PadaliniuValanduKiekis` (`Nuo` INT, `idPadaliniai` INT, `Kodas` INT, `Pavadinimas` INT, `"Valandos"` INT);
+
+-- -----------------------------------------------------
+-- Placeholder table for view `PPOS`.`IsValanduKiekis`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `PPOS`.`IsValanduKiekis` (`Nuo` INT, `Kodas` INT, `Pavadinimas` INT, `"Valandos"` INT);
+
+-- -----------------------------------------------------
+-- View `PPOS`.`PadaliniuParaiskuKiekis`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PPOS`.`PadaliniuParaiskuKiekis`;
+USE `PPOS`;
+CREATE  OR REPLACE VIEW `PPOS`.`PadaliniuParaiskuKiekis` AS
+SELECT ParamosKiekiai.Nuo, Padaliniai.idPadaliniai, Padaliniai.Kodas, Padaliniai.Pavadinimas, SUM(ParamosKiekiai.ParaiskuKiekis) AS "Paraiskos"
+    FROM ParamosKiekiai, ParamosAdministravimas, Padaliniai
+    WHERE ParamosKiekiai.ParamosPriemone = ParamosAdministravimas.ParamosPriemone
+          AND Padaliniai.idPadaliniai = ParamosAdministravimas.Padalinys
+    GROUP BY ParamosKiekiai.Nuo, ParamosAdministravimas.Padalinys;
+
+-- -----------------------------------------------------
+-- View `PPOS`.`IsParaiskuKiekis`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PPOS`.`IsParaiskuKiekis`;
+USE `PPOS`;
+CREATE  OR REPLACE VIEW `PPOS`.`IsParaiskuKiekis` AS
+SELECT PadaliniuParaiskuKiekis.Nuo, `IS`.Kodas, `IS`.Pavadinimas, SUM(PadaliniuParaiskuKiekis.Paraiskos) AS "Paraiskos"
+    FROM PadaliniuParaiskuKiekis, IS_Padaliniai, `IS`
+    WHERE PadaliniuParaiskuKiekis.idPadaliniai = IS_Padaliniai.Padalinys AND IS_Padaliniai.IS = `IS`.idIS
+    GROUP BY PadaliniuParaiskuKiekis.Nuo, IS_Padaliniai.IS;
+
+-- -----------------------------------------------------
+-- View `PPOS`.`PadaliniuValanduKiekis`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PPOS`.`PadaliniuValanduKiekis`;
+USE `PPOS`;
+CREATE  OR REPLACE VIEW `PPOS`.`PadaliniuValanduKiekis` AS
+SELECT ParamosKiekiai.Nuo, Padaliniai.idPadaliniai, Padaliniai.Kodas, Padaliniai.Pavadinimas, SUM((ParamosAdministravimas.Valandos * ParamosKiekiai.ParaiskuKiekis)) AS "Valandos"
+    FROM ParamosKiekiai, ParamosAdministravimas, Padaliniai
+    WHERE ParamosKiekiai.ParamosPriemone = ParamosAdministravimas.ParamosPriemone
+          AND Padaliniai.idPadaliniai = ParamosAdministravimas.Padalinys
+    GROUP BY ParamosKiekiai.Nuo, ParamosAdministravimas.Padalinys;
+
+-- -----------------------------------------------------
+-- View `PPOS`.`IsValanduKiekis`
+-- -----------------------------------------------------
+DROP TABLE IF EXISTS `PPOS`.`IsValanduKiekis`;
+USE `PPOS`;
+CREATE  OR REPLACE VIEW `PPOS`.`IsValanduKiekis` AS
+SELECT PadaliniuValanduKiekis.Nuo, `IS`.Kodas, `IS`.Pavadinimas, SUM(PadaliniuValanduKiekis.Valandos) AS "Valandos"
+    FROM PadaliniuValanduKiekis, IS_Padaliniai, `IS`
+    WHERE PadaliniuValanduKiekis.idPadaliniai = IS_Padaliniai.Padalinys AND IS_Padaliniai.IS = `IS`.idIS
+    GROUP BY PadaliniuValanduKiekis.Nuo, IS_Padaliniai.IS;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

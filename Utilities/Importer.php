@@ -73,7 +73,7 @@ class Importer{
             $idPadalinys = Padaliniai::select("Kodas = '" . repairSqlInjection($i->kodas) . "'");
             foreach ($i->paramosPriemones as $j){
                 $idParamosPriemone = ParamosPriemones::select("Kodas = '" . repairSqlInjection($j->kodas) . "'");
-                if ((sizeof($idPadalinys) > 0) && (sizeof($idParamosPriemone) > 0)){
+                if ((sizeof($idPadalinys) > 0) && (sizeof($idParamosPriemone) > 0) && ($j->administravimoSanaudos > 0)){
                     ParamosAdministravimas::insert($idParamosPriemone[0], $idPadalinys[0], $j->administravimoSanaudos);
                 }
             }
@@ -94,6 +94,8 @@ class Importer{
     
     public function import()
     {
+        set_time_limit(0);
+        
         $this->importIS();
         $this->importPadaliniai();
         $this->importIS_Padaliniai();
@@ -101,6 +103,8 @@ class Importer{
         $this->importParamosPriemones();
         $this->importParamosAdministravimas();
         $this->importParamosKiekiai();
+        
+        set_time_limit(30);
     }
     
 }
