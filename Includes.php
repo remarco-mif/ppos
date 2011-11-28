@@ -13,6 +13,7 @@
     require_once("Validation/ParamosKiekiaiValidation.php");
     require_once("Validation/ParamosPriemoniuKryptysValidation.php");
     require_once("Validation/ParamosPriemonesValidation.php");
+    require_once("Validation/UserValidation.php");
     
     require_once("DbObject/LinkTable.php");
     require_once("DbObject/MysqlObject.php");
@@ -22,6 +23,7 @@
     require_once("DbObject/ParamosPriemoniuKryptys.php");
     require_once("DbObject/ParamosPriemones.php");
     require_once("DbObject/ParamosAdministravimas.php");
+    require_once("DbObject/User.php");
     
     require_once("XlsParsers/excel_reader2.php");
     require_once("XlsParsers/IS_PadaliniaiParseris.php");

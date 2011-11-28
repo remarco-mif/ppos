@@ -1,9 +1,11 @@
 <?php
 
+//$_GET['info'] = "class/method/var1/var2/var3";
+
 class Manager {
     
-    public $class = null;
-    public $method = null;
+    public $class = "home";
+    public $method = "home";
     public $arguments = array();
     
     private $classArray = array('home' => 'ManageHome');
