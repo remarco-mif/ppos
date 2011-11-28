@@ -3,19 +3,16 @@
     session_start();
     require_once("../Includes.php");
     
-    require_once("../phpgraph/phpgraphlib.php");
-    
-    
-    $data = db::select("SELECT * FROM MenesiuPadaliniuApkrovimas WHERE Nuo = '2008-01-01'");
+    $data = db::select("SELECT * FROM PadaliniuParaiskuKiekis WHERE Nuo = '2008-01-01'");
     $newData = array();
     foreach ($data["data"] as $i){
-        $newData[$i["Kodas"]] = $i["ParaiskuKiekis"];
+        $newData[$i["Kodas"]] = $i["Paraiskos"];
     }
     
     $graph = new PHPGraphLib(550, 200);
     $graph->addData($newData);
     $graph->setTitle('2008-01-01');
-    $graph->setGradient('red', 'maroon');
+    $graph->setGradient($_GET["color"], 'maroon');
     $graph->setDataValues(true);
     $graph->createGraph();
     

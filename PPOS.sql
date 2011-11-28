@@ -126,10 +126,11 @@ ENGINE = InnoDB;
 -- Table `PPOS`.`User`
 -- -----------------------------------------------------
 CREATE  TABLE IF NOT EXISTS `PPOS`.`User` (
+  `idUser` INT NOT NULL AUTO_INCREMENT ,
   `Username` VARCHAR(32) NOT NULL ,
   `Password` VARCHAR(256) NOT NULL ,
   `Admin` TINYINT(1)  NOT NULL ,
-  PRIMARY KEY (`Username`) )
+  PRIMARY KEY (`idUser`) )
 ENGINE = InnoDB;
 
 
