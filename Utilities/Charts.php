@@ -68,8 +68,8 @@
                 exit(0);
             }
             
-            $dataNuo = $_GET["menuoNuo"];
-            $dataIki = $_GET["menuoIki"];
+            $dataNuo = $_GET["menuoNuo"] . "-01";
+            $dataIki = $_GET["menuoIki"] . "-01";
             $dataIki = date('Y-m-d',strtotime("$dataIki + 1 months"));
             if ((ObjectValidation::validateDate($dataNuo) == false) || (ObjectValidation::validateDate($dataIki) == false)){
                 ErrorMessages::setError(12, "null", "Charts.php");
@@ -100,8 +100,8 @@
                 exit(0);
             }
             
-            $dataNuo = $_GET["menuoNuo"];
-            $dataIki = $_GET["menuoIki"];
+            $dataNuo = $_GET["menuoNuo"] . "-01";
+            $dataIki = $_GET["menuoIki"] . "-01";
             $dataIki = date('Y-m-d',strtotime("$dataIki + 1 months"));
             if ((ObjectValidation::validateDate($dataNuo) == false) || (ObjectValidation::validateDate($dataIki) == false)){
                 ErrorMessages::setError(12, "null", "Charts.php");
