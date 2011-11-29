@@ -14,6 +14,7 @@
     
     include("WebObjects/Panels/Left/DuomenuAnalizePanel.php");
     include("WebObjects/Panels/Left/Prognozes.php");
+    include("WebObjects/Panels/Left/Filters.php");
     include("WebObjects/Panels/Right/Lenteles.php");
     
     if(ErrorMessages::isErrors()){

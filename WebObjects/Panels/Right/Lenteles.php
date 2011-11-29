@@ -6,10 +6,10 @@ class Lenteles extends MainPanel{
         $this->content = <<<FFF
         <div>
             <div class="post">
-                <img src="Design/images/graph_test.png" width="550" height="200" />
+                <img id="chart1" src="" width="550" height="200" />
             </div>
             <div class="post">
-                <img src="Design/images/graph_test.png" width="550" height="200" />
+                <img id="chart2" src="" width="550" height="200" />
             </div>
         </div>
 FFF;

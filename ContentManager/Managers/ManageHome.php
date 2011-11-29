@@ -17,8 +17,10 @@
             $page = new Page();
             $panel = new DuomenuAnalizePanel();
             $panel1 = new Lenteles();
+            $panel2 = new Filters();
             $page->addToContainer(1, $panel1->getHtml());
             $page->addToContainer(2, $panel->getHtml());
+            $page->addToContainer(2, $panel2->getHtml());
             $page->pagePrint();
         }
         
@@ -34,6 +36,12 @@
         public function login(){
             $page = new Login();
             $page->pagePrint();
+        }
+        
+        public function logout(){
+            $_SESSION['username'] = null;
+            $_SESSION['password'] = null;
+            $this->login();
         }
         
     }

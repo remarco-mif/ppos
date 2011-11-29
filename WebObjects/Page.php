@@ -26,6 +26,8 @@ class Page extends HTMLPage{
             <meta http-equiv="content-type" content="text/html; charset=utf-8" />
             <title>PPOS</title>
             <link href="Design/style.css" rel="stylesheet" type="text/css" media="screen" />
+            <script src="jquery-1.7.min.js"></script>
+            <script src="functions.js"></script>
         </head>
         <body>
             <div id="wrapper">
@@ -34,7 +36,7 @@ class Page extends HTMLPage{
                         <ul>
                             <li class="current_page_item"><a href="?info=home/duom_anal">Duomenų analizė</a></li>
                             <li><a href="?info=home/prognozes">Prognozės</a></li>
-                            <li><a href="#">Atsijungti</a></li>
+                            <li><a href="?info=home/logout">Atsijungti</a></li>
                             <li><a href="#">Pagalba</a></li>
                         </ul>
                     </div>
@@ -47,7 +49,7 @@ class Page extends HTMLPage{
                     </div>
                     <!-- end #content -->
                     <div id="sidebar">
-                        <ul>	
+                        <ul id="panels1">	
                             {$this->HTMLContainers[1]->getHTML()}
                         </ul>
                     </div>
