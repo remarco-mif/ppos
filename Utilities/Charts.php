@@ -6,7 +6,7 @@
     define("CHART_HEIGHT", 200);
     
     if (!isset($_GET["chart"])){
-        ErrorMessages::setError(10, "null", "Charts.php");
+        ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Bloga nuoroda");
         exit(0);
     }
     
@@ -18,13 +18,13 @@
     switch ($chart){
         case "padaliniu_paraiskos":
             if (!isset($_GET["menuo"])){
-                ErrorMessages::setError(10, "null", "Charts.php");
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Bloga nuoroda");
                 exit(0);
             }
             
             $data = $_GET["menuo"] . "-01";
             if (ObjectValidation::validateDate($data) == false){
-                ErrorMessages::setError(12, "null", "Charts.php");
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Blogas datos formatas");
                 exit(0);
             }
             
@@ -32,6 +32,12 @@
             
             $dbQuery = "SELECT * FROM PadaliniuParaiskuKiekis WHERE Nuo = '" . $data . "'";
             $dbResult = db::select($dbQuery);
+            
+            if (empty($dbResult["data"])){
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Neturima duomenų apie pasirinktą mėnesį");
+                exit(0);                
+            }
+            
             $chartData = array();
             foreach ($dbResult["data"] as $i){
                 $chartData[$i["Kodas"]] = $i["Paraiskos"];
@@ -41,13 +47,13 @@
             
         case "is_paraiskos":
             if (!isset($_GET["menuo"])){
-                ErrorMessages::setError(10, "null", "Charts.php");
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Bloga nuoroda");
                 exit(0);
             }
             
             $data = $_GET["menuo"] . "-01";
             if (ObjectValidation::validateDate($data) == false){
-                ErrorMessages::setError(12, "null", "Charts.php");
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Blogas datos formatas");
                 exit(0);
             }
             
@@ -55,6 +61,12 @@
             
             $dbQuery = "SELECT * FROM IsParaiskuKiekis WHERE Nuo = '" . $data . "'";
             $dbResult = db::select($dbQuery);
+            
+            if (empty($dbResult["data"])){
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Neturima duomenų apie pasirinktą mėnesį");
+                exit(0);                
+            }
+            
             $chartData = array();
             foreach ($dbResult["data"] as $i){
                 $chartData[$i["Kodas"]] = $i["Paraiskos"];
@@ -64,19 +76,40 @@
             
         case "padaliniu_valandos":
             if ((!isset($_GET["menuoNuo"])) || (!isset($_GET["menuoIki"]))){
-                ErrorMessages::setError(10, "null", "Charts.php");
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Bloga nuoroda");
                 exit(0);
             }
             
             $dataNuo = $_GET["menuoNuo"] . "-01";
             $dataIki = $_GET["menuoIki"] . "-01";
-            $dataIki = date('Y-m-d',strtotime("$dataIki + 1 months"));
             if ((ObjectValidation::validateDate($dataNuo) == false) || (ObjectValidation::validateDate($dataIki) == false)){
-                ErrorMessages::setError(12, "null", "Charts.php");
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Blogas datos formatas");
                 exit(0);
             }
             
-            $graph->setTitle($dataNuo . " - " . date('Y-m-d',strtotime("$dataIki - 1 day")));
+            $graph->setTitle($dataNuo . " - " . date('Y-m-d',strtotime("$dataIki - 1 day + 1 months")));
+            
+            $dbQuery = "SELECT MIN(Nuo) AS `min` FROM PadaliniuValanduKiekis";
+            $dbResult = db::select($dbQuery);
+            $minData = $dbResult["data"][0]["min"];
+            $dbQuery = "SELECT MAX(Nuo) AS `max` FROM PadaliniuValanduKiekis";
+            $dbResult = db::select($dbQuery);
+            $maxData = $dbResult["data"][0]["max"];
+            
+            if ($dataNuo < $minData)
+                $dataNuo = $minData;
+            if ($dataIki > $maxData)
+                $dataIki = $maxData;
+            $dataIki = date('Y-m-d',strtotime("$dataIki + 1 months"));
+            
+            if ($dataNuo > $dataIki){
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Blogas laiko intervalas");
+                exit(0);
+            }
+            if (($dataIki < $minData) || ($dataNuo > $maxData)){
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Neturima duomenų apie pasirinktą laiko intervalą");
+                exit(0);
+            }
    
             $chartData = array();
             $data = $dataNuo;
@@ -96,7 +129,7 @@
             
         case "is_valandos":
             if ((!isset($_GET["menuoNuo"])) || (!isset($_GET["menuoIki"]))){
-                ErrorMessages::setError(10, "null", "Charts.php");
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Bloga nuoroda");
                 exit(0);
             }
             
@@ -104,7 +137,7 @@
             $dataIki = $_GET["menuoIki"] . "-01";
             $dataIki = date('Y-m-d',strtotime("$dataIki + 1 months"));
             if ((ObjectValidation::validateDate($dataNuo) == false) || (ObjectValidation::validateDate($dataIki) == false)){
-                ErrorMessages::setError(12, "null", "Charts.php");
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Blogas datos formatas");
                 exit(0);
             }
             
@@ -127,7 +160,7 @@
             break;
             
             default:
-                ErrorMessages::setError(11, "null", "Charts.php");
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Bloga diagramos rūšis");
                 exit(0);
                 break;
     }
@@ -135,5 +168,6 @@
     $graph->addData($chartData);
     $graph->setGradient('red', 'maroon');
     $graph->setDataValues(true);
+    $graph->setupXAxis(20);
     $graph->createGraph();
 ?>
