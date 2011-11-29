@@ -11,7 +11,7 @@ class Ppav extends MainPanel{
                     <tr>
                         <td align="left">Data nuo:</td>
                         <td align="left"><input id="data1" type="text" style="width:50px;" /></td>
-                        <td align="left" rowspan="2">YYYY-MM-DD</td>
+                        <td align="left" rowspan="2">YYYY-MM</td>
                     </tr>
                     <tr>
                         <td align="left">Data iki:</td>

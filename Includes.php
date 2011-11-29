@@ -1,6 +1,7 @@
 <?php
 
     require_once("Utilities/ErrorMessages.php");
+    require_once("Utilities/Mathematics.php");
     require_once("functions.php");
     require_once("Utilities/utilities.php");
     require_once("DB/db.php");

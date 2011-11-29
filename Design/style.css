@@ -481,3 +481,31 @@ a:hover {
 	font-size: 30px;
 	color: #FFFFFF;
 }
+
+
+#_prognozes #prognozes {
+    margin:0px;
+}
+
+#_prognozes{
+    height:300px;
+    overflow-x:hidden;
+}
+#_prognozes #prognozes > li:hover {
+    padding-left: 10px;
+}
+#_prognozes #prognozes > li {
+    background: none;
+    list-style:none;
+    line-height: 1.5em;
+    margin:0;
+    margin-bottom:0px;
+    padding:2px; 
+    width:100%;
+    font-size: 11px;
+    cursor:pointer;
+}
+#prognozes > li.active {
+    background:#CA4C44 !important;
+    color:white;
+}

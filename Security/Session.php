@@ -32,7 +32,7 @@
                     if($this->password == $this->user->getPassword()){
                         $_SESSION['username'] = $this->username;
                         $_SESSION['password'] = $this->password;
-                        if($this->isAdmin == 0){
+                        if($this->isAdmin != 0){
                             if($this->user->isAdmin()){
                                 $this->isLogedin = true;
                             }else{
