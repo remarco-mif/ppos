@@ -96,16 +96,17 @@
             $dbResult = db::select($dbQuery);
             $maxData = $dbResult["data"][0]["max"];
             
+            if ($dataNuo > $dataIki){
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Blogas laiko intervalas");
+                exit(0);
+            }
+            
             if ($dataNuo < $minData)
                 $dataNuo = $minData;
             if ($dataIki > $maxData)
                 $dataIki = $maxData;
             $dataIki = date('Y-m-d',strtotime("$dataIki + 1 months"));
             
-            if ($dataNuo > $dataIki){
-                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Blogas laiko intervalas");
-                exit(0);
-            }
             if (($dataIki < $minData) || ($dataNuo > $maxData)){
                 ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Neturima duomenų apie pasirinktą laiko intervalą");
                 exit(0);
@@ -135,13 +136,35 @@
             
             $dataNuo = $_GET["menuoNuo"] . "-01";
             $dataIki = $_GET["menuoIki"] . "-01";
-            $dataIki = date('Y-m-d',strtotime("$dataIki + 1 months"));
             if ((ObjectValidation::validateDate($dataNuo) == false) || (ObjectValidation::validateDate($dataIki) == false)){
                 ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Blogas datos formatas");
                 exit(0);
             }
             
-            $graph->setTitle($dataNuo . " - " . date('Y-m-d',strtotime("$dataIki - 1 day")));
+            $graph->setTitle($dataNuo . " - " . date('Y-m-d',strtotime("$dataIki - 1 day + 1 months")));
+            
+            $dbQuery = "SELECT MIN(Nuo) AS `min` FROM IsValanduKiekis";
+            $dbResult = db::select($dbQuery);
+            $minData = $dbResult["data"][0]["min"];
+            $dbQuery = "SELECT MAX(Nuo) AS `max` FROM IsValanduKiekis";
+            $dbResult = db::select($dbQuery);
+            $maxData = $dbResult["data"][0]["max"];
+            
+            if ($dataNuo > $dataIki){
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Blogas laiko intervalas");
+                exit(0);
+            }
+            
+            if ($dataNuo < $minData)
+                $dataNuo = $minData;
+            if ($dataIki > $maxData)
+                $dataIki = $maxData;
+            $dataIki = date('Y-m-d',strtotime("$dataIki + 1 months"));
+            
+            if (($dataIki < $minData) || ($dataNuo > $maxData)){
+                ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Neturima duomenų apie pasirinktą laiko intervalą");
+                exit(0);
+            }
    
             $chartData = array();
             $data = $dataNuo;
