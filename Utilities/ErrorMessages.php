@@ -12,8 +12,9 @@ class ErrorMessages {
         7 => 'Klaida vykdant insert.',
         8 => 'Nepavyko ideti iraso.',
         9 => 'Nepavyko itraukti duomens del neaiskiu priezasciu.',
-        10 => 'Nepavyko rekomenduoti filmo.',
-        11 => 'Nepavyko rekomenduoti filmo.',
+        10 => 'Nerasti _GET[] masyvo kintamieji',
+        11 => 'Bloga diagramos rusis: chart',
+        12 => 'Blogas datos formatas',
         256 => 'sikt'
     );
     

@@ -5,6 +5,11 @@
     define("CHART_WIDTH", 550);
     define("CHART_HEIGHT", 200);
     
+    if (!isset($_GET["chart"])){
+        ErrorMessages::setError(10, "null", "Charts.php");
+        exit(0);
+    }
+    
     $chart = repairSqlInjection($_GET["chart"]);
     //$chartType = repairSqlInjection($_GET["type"]);
     
@@ -12,7 +17,17 @@
     
     switch ($chart){
         case "padaliniu_paraiskos":
-            $data = $_GET["menuo"];
+            if (!isset($_GET["menuo"])){
+                ErrorMessages::setError(10, "null", "Charts.php");
+                exit(0);
+            }
+            
+            $data = $_GET["menuo"] . "-01";
+            if (ObjectValidation::validateDate($data) == false){
+                ErrorMessages::setError(12, "null", "Charts.php");
+                exit(0);
+            }
+            
             $graph->setTitle($data);
             
             $dbQuery = "SELECT * FROM PadaliniuParaiskuKiekis WHERE Nuo = '" . $data . "'";
@@ -25,7 +40,17 @@
             break;
             
         case "is_paraiskos":
-            $data = $_GET["menuo"];
+            if (!isset($_GET["menuo"])){
+                ErrorMessages::setError(10, "null", "Charts.php");
+                exit(0);
+            }
+            
+            $data = $_GET["menuo"] . "-01";
+            if (ObjectValidation::validateDate($data) == false){
+                ErrorMessages::setError(12, "null", "Charts.php");
+                exit(0);
+            }
+            
             $graph->setTitle($data);
             
             $dbQuery = "SELECT * FROM IsParaiskuKiekis WHERE Nuo = '" . $data . "'";
@@ -38,10 +63,20 @@
             break;
             
         case "padaliniu_valandos":
+            if ((!isset($_GET["menuoNuo"])) || (!isset($_GET["menuoIki"]))){
+                ErrorMessages::setError(10, "null", "Charts.php");
+                exit(0);
+            }
+            
             $dataNuo = $_GET["menuoNuo"];
             $dataIki = $_GET["menuoIki"];
             $dataIki = date('Y-m-d',strtotime("$dataIki + 1 months"));
-            $graph->setTitle($dataNuo . " - " . $dataIki);
+            if ((ObjectValidation::validateDate($dataNuo) == false) || (ObjectValidation::validateDate($dataIki) == false)){
+                ErrorMessages::setError(12, "null", "Charts.php");
+                exit(0);
+            }
+            
+            $graph->setTitle($dataNuo . " - " . date('Y-m-d',strtotime("$dataIki - 1 day")));
    
             $chartData = array();
             $data = $dataNuo;
@@ -57,14 +92,23 @@
                 }
                 $data = date('Y-m-d',strtotime("$data + 1 months"));
             } 
-            
             break;
             
         case "is_valandos":
+            if ((!isset($_GET["menuoNuo"])) || (!isset($_GET["menuoIki"]))){
+                ErrorMessages::setError(10, "null", "Charts.php");
+                exit(0);
+            }
+            
             $dataNuo = $_GET["menuoNuo"];
             $dataIki = $_GET["menuoIki"];
             $dataIki = date('Y-m-d',strtotime("$dataIki + 1 months"));
-            $graph->setTitle($dataNuo . " - " . $dataIki);
+            if ((ObjectValidation::validateDate($dataNuo) == false) || (ObjectValidation::validateDate($dataIki) == false)){
+                ErrorMessages::setError(12, "null", "Charts.php");
+                exit(0);
+            }
+            
+            $graph->setTitle($dataNuo . " - " . date('Y-m-d',strtotime("$dataIki - 1 day")));
    
             $chartData = array();
             $data = $dataNuo;
@@ -80,8 +124,12 @@
                 }
                 $data = date('Y-m-d',strtotime("$data + 1 months"));
             } 
-            
             break;
+            
+            default:
+                ErrorMessages::setError(11, "null", "Charts.php");
+                exit(0);
+                break;
     }
     
     $graph->addData($chartData);
