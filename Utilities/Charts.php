@@ -2,6 +2,27 @@
     session_start();
     require_once("../Includes.php");
     
+    function drawAnalysisGraph($graph){
+        $graph->setGradient('red', 'maroon');
+        $graph->setDataValues(true);
+        $graph->setupXAxis(20);
+        $graph->createGraph();
+    }
+    
+    function drawPrognosisGraph($graph){
+        $graph->setTitle('PPM Per Container');
+        $graph->setBars(false);
+        $graph->setLine(true);
+        //$graph->setLineColor('blue', 'green', 'red');
+        $graph->setDataPoints(true);
+        $graph->setDataPointColor('maroon');
+        $graph->setDataValues(true);
+        $graph->setDataValueColor('maroon');
+        $graph->setLegend(true);
+        //$graph->setLegendTitle("PA1", "PA2", "PA3");
+        $graph->createGraph();
+    }
+    
     define("CHART_WIDTH", 550);
     define("CHART_HEIGHT", 200);
     
@@ -43,6 +64,8 @@
                 $chartData[$i["Kodas"]] = $i["Paraiskos"];
             }
             
+            $graph->addData($chartData);
+            drawAnalysisGraph($graph);
             break;
             
         case "is_paraiskos":
@@ -71,7 +94,9 @@
             foreach ($dbResult["data"] as $i){
                 $chartData[$i["Kodas"]] = $i["Paraiskos"];
             }
-            
+
+            $graph->addData($chartData);
+            drawAnalysisGraph($graph);
             break;
             
         case "padaliniu_valandos":
@@ -126,6 +151,9 @@
                 }
                 $data = date('Y-m-d',strtotime("$data + 1 months"));
             } 
+
+            $graph->addData($chartData);
+            drawAnalysisGraph($graph);
             break;
             
         case "is_valandos":
@@ -180,17 +208,38 @@
                 }
                 $data = date('Y-m-d',strtotime("$data + 1 months"));
             } 
+
+            $graph->addData($chartData);
+            drawAnalysisGraph($graph);
             break;
+            
+            case "padaliniu_prognoze":
+                if (!isset($_GET["paramos_priemones"])){
+                    ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Bloga nuoroda");
+                    exit(0);
+                }
+                
+                $paramosPriemones = explode(",", $_GET["paramos_priemones"]);
+                $padaliniuValandos = OrganizacijosPrognozes::getPadaliniuValandos($paramosPriemones);
+                
+                $chartData = array();
+                foreach ($padaliniuValandos as $menuo){
+                    $data = array();
+                    foreach ($menuo as $padalinys => $valandos){
+                        $data[$menuo] = $valandos;
+                    }
+                     
+                }
+                
+                $chartData = array(array(1=>34, 2=>56, 5=>32), array(1=>25, 2=>13, 3=>90));
+                
+                call_user_func_array(array($graph, "addData"), $chartData);
+                drawPrognosisGraph($graph);
+                break;
             
             default:
                 ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Bloga diagramos rūšis");
                 exit(0);
                 break;
     }
-    
-    $graph->addData($chartData);
-    $graph->setGradient('red', 'maroon');
-    $graph->setDataValues(true);
-    $graph->setupXAxis(20);
-    $graph->createGraph();
 ?>

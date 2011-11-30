@@ -39,6 +39,14 @@
         }
         
         /*
+            planuojamiKiekiai: Array
+            (
+                [3] (idParamosPriemone) => Array
+                (
+                    [10] (menuo) => 21 (kiekis)
+                )
+            )
+            
             padaliniuValandos: Array
             (
                 [1] (menuo) => Array
@@ -48,6 +56,7 @@
                 )
             )
         */
+        /*
         static public function getPadaliniuApkrovimas($planuojamiKiekiai){
             $padaliniuValandos = array();
             
@@ -64,7 +73,68 @@
             }
             return($padaliniuValandos);
         }
+        */
         
+        /*
+            planuojamiKiekiai: Array
+            (
+                [3] (idParamosPriemone) => Array
+                (
+                    [10] (menuo) => 21 (kiekis)
+                )
+            )
+            
+            padaliniuValandos: Array
+            (
+                [1] (padalinys) => Array
+                (
+                    [1] (menuo) => valandos
+                    [12] (menuo) => 456
+                )
+            )
+        */
+        static public function getPadaliniuApkrovimas($planuojamiKiekiai){
+            $padaliniuValandos = array();
+            
+            foreach($planuojamiKiekiai as $paramosPriemone => $kiekiai){
+                $padaliniai = ParamosAdministravimas::getPadaliniai($paramosPriemone);
+                foreach ($kiekiai as $menuo => $kiekis){
+                    foreach ($padaliniai as $p){
+                        if (!isset($padaliniuValandos[$p["Padalinys"]][$menuo]))
+                            $padaliniuValandos[$p["Padalinys"]][$menuo] = $kiekis * $p["Valandos"];
+                        else
+                            $padaliniuValandos[$p["Padalinys"]][$menuo] +=  $kiekis * $p["Valandos"];
+                    }
+                }
+            }
+            return($padaliniuValandos);
+        }        
+        
+        /*
+            paramosPriemones: Array
+            (
+                [1] (idParamosPriemone)
+            )
+            
+            planuojamiKiekiai: Array
+            (
+                [3] (idParamosPriemone) => Array
+                (
+                    [10] (menuo) => 21 (kiekis)
+                )
+            )
+        */
+        static public function getPadaliniuValandos($paramosPriemones){
+            $planuojamiKiekiai = array();
+            foreach ($paramosPriemones as $p){
+                $paraiskuKiekiai = array();
+                for ($i = 1; $i <= 12; $i++){
+                    $paraiskuKiekiai[$i] = OrganizacijosPrognozes::prognozuotiKieki(OrganizacijosPrognozes::getMenesioParamosKiekius($p, $i));
+                }
+                $planuojamiKiekiai[$p] = $paraiskuKiekiai;
+            }
+            return(OrganizacijosPrognozes::getPadaliniuApkrovimas($planuojamiKiekiai));
+        }
         
         /*
             grazinama kiek valandu ketinama administruoti paramos priemones ateinanciu metu kiekviena menesi.
