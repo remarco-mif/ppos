@@ -26,7 +26,12 @@ class Mathematics {
     
     // Standartinis nuokrypis
     static public function standartDeviation($array){
-        return sqrt(self::dispersion($array));
+        $standartDiviation = sqrt(self::dispersion($array));
+        if($standartDiviation == 0){
+            return 1;
+        }else{
+            return $standartDiviation;
+        }
     }
     
     // Korialecinis koeaficientas
