@@ -3,6 +3,7 @@
 class ImageText
 {
     static public function createTextImage($width, $height, $text){
+        header('Content-Type: image/png');
         $img = @imagecreatetruecolor($width, $height);
         
         $bgColor = imagecolorallocate($img, 255, 255, 255);
@@ -19,7 +20,6 @@ class ImageText
         $y = (int)(($height - $lineHeight) / 2);
         imagettftext($img, $fontSize, 0, $x, $y, $textColor, $fontName, $text);
         
-        header('Content-Type: image/png');
         imagepng($img);
         imagedestroy($img);
     }

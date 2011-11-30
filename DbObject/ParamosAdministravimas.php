@@ -14,6 +14,26 @@ class ParamosAdministravimas {
                 return null;
             }
         }
+        
+        /*
+            Gaunamas padaliniu sarasas, kurie administruoja pasirinkta paramos priemone.
+            Grazinamas masyvas:     [0] => Array
+                                    (
+                                        [ParamosPriemone] => 3
+                                        [Padalinys] => 1
+                                        [Valandos] => 1.0
+                                    )
+                                    [1] => Array
+                                    ..........
+        */
+        static public function getPadaliniai($idParamosPriemone){
+            $result = db::select("SELECT * FROM `PPOS`.`ParamosAdministravimas` WHERE ParamosPriemone = " . $idParamosPriemone);
+            if ($result["bool"] == true){
+                return($result["data"]);
+            }   
+            else
+                return($result);
+        }
 
         static public function insert($paramosPriemone, $padalinys, $valandos){
             $result = mysql_query("INSERT INTO `PPOS`.`ParamosAdministravimas` (`ParamosPriemone`, `Padalinys`, `Valandos`) VALUES ('".$paramosPriemone."', '".$padalinys."', '".$valandos."')");
