@@ -82,10 +82,10 @@ function ready() {
         var els = [ ];
         
         $('#prognozes > .active').each(function () {
-            els.push($(this).attr("id"))
+            els.push(parseInt($(this).attr("id")));
         });
         
-        alert(els.join(", "));
+        alert(els.join(","));
     });
     
     $('#data').live("keydown", function (event) {
