@@ -25,8 +25,6 @@ class Prognozes extends MainPanel{
                 {$this->paramosPriemones}
                 </ul>
             </div>
-            <p style="font-size:11px; padding-left:0px; padding-top:10px; padding-bottom:10px;">Nuspaude CTRL klavisa suzymekite paramos priemones.</p>
-            <input type="button" id="search-submit" value="Prognozuoti" />
         </li>
 FFF;
     }

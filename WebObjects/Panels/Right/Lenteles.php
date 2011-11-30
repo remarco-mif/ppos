@@ -4,7 +4,7 @@ class Lenteles extends MainPanel{
     
     protected function htmlContent(){
         $this->content = <<<FFF
-        <div>
+        <div id="bandau">
             <div class="post">
                 <img id="chart1" src="" width="550" height="200" />
             </div>

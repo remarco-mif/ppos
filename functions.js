@@ -78,14 +78,21 @@ function ready() {
        $(this).toggleClass("active"); 
     });
     
-    $('#search-submit').click(function () {
+    $('#search-submit, #prognozes > li').click(function () {
         var els = [ ];
         
         $('#prognozes > .active').each(function () {
             els.push(parseInt($(this).attr("id")));
         });
         
-        alert(els.join(","));
+        var joinedElem = els.join(",");
+       
+        $.ajax({
+            url: "AjaxActions/User/PrognoziuLenteles.php?param=" + joinedElem,
+            success: function(data){
+                $("#bandau").html(data);
+            }
+        });
     });
     
     $('#data').live("keydown", function (event) {
