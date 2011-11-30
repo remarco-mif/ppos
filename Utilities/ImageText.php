@@ -8,7 +8,7 @@ class ImageText
         $bgColor = imagecolorallocate($img, 255, 255, 255);
         $textColor = imagecolorallocate($img, 0, 0, 0);
         $fontSize = 11;
-        $fontName = "arial.ttf";
+        $fontName = "./arial.ttf";
         
         imagefilledrectangle($img, 0, 0, $width, $height, $bgColor);
         
