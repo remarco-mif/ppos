@@ -817,12 +817,18 @@ class PHPGraphLib {
 			imagerectangle($this->image, 0, 0, $this->width-1,($key * $lineHeight) + 2 * $lineHeight,  $errorOutlineColor);		
 		}
 	}
-	function addData($data, $data2 = '', $data3 = '', $data4 = '', $data5 = '') {
+    
+    //unlimited FIX By Povilas & Julius
+	//function addData($data, $data2 = '', $data3 = '', $data4 = '', $data5 = '') {
+    /*
 		if (is_array($data)){ $this->data_array[]=$data; }
 		if (is_array($data2)){ $this->data_array[]=$data2; }
 		if (is_array($data3)){ $this->data_array[]=$data3; }
 		if (is_array($data4)){ $this->data_array[]=$data4; }
 		if (is_array($data5)){ $this->data_array[]=$data5; }
+    */
+    function addData($data, $data2 = '', $data3 = '', $data4 = '', $data5 = '') {
+        $this->data_array = func_get_args();
 		//assess data
 		$min = $this->data_max_allowable;
 		$max = $this->data_min_allowable;
@@ -1206,6 +1212,8 @@ class PHPGraphLib {
 	function setDataValueColor($color) {
 		$this->setGenericColor($color, '$this->data_value_color', "Data value color not specified properly.");	
 	}
+    
+    /*
 	function setLineColor($color, $color2 = '', $color3 = '', $color4 = '', $color5 = '') {
 		$this->setGenericColor($color, '$this->line_color[]', "Line color not specified properly.");
 		if (!empty($color2)) {
@@ -1221,6 +1229,16 @@ class PHPGraphLib {
 			$this->setGenericColor($color5, '$this->line_color[]', "Line color 5 not specified properly.");	
 		}
 	}
+    */
+	function setLineColor($color, $color2 = '', $color3 = '', $color4 = '', $color5 = '') {
+        $colors = func_get_args();
+        $i = 0;
+        foreach ($colors as $color){
+            $i++;
+            $this->setGenericColor($color, '$this->line_color[]', "Line color" . $i . " not specified properly.");
+        }
+	}
+
 	/* @deprecated - setGoalLineColor() replaced with 2nd parameter of setGoalLine() */
 	function setGoalLineColor($color) {
 		$this->setGenericColor($color, '$this->goal_line_color', "Goal line color not specified properly.");
@@ -1273,6 +1291,8 @@ class PHPGraphLib {
 	function setSwatchOutlineColor($color) {
 		$this->setGenericColor($color, '$this->legend_swatch_outline_color', "Swatch outline color not specified properly.");
 	}
+    
+    /*
 	function setLegendTitle($title, $title2 = '', $title3 = '', $title4 = '', $title5 = '') {
 		if (!empty($title)) { 		
 			$len = strlen($title);
@@ -1321,6 +1341,26 @@ class PHPGraphLib {
 			$this->legend_titles[] = $title5; 
 		}
 	}
+    */
+    
+	function setLegendTitle($title, $title2 = '', $title3 = '', $title4 = '', $title5 = '') {
+        $titles = func_get_args();
+        
+        foreach($titles as $title){
+            if (!empty($title)) { 
+                $len = strlen($title);
+                if ($len > $this->legend_max_chars){ 
+                    $title = substr($title, 0, $this->legend_max_chars); 
+                    $this->legend_total_chars[] = $this->legend_max_chars;
+                }
+                else {
+                    $this->legend_total_chars[] = $len;
+                }
+                $this->legend_titles[] = $title;
+            }                    
+		}
+	}
+    
 	function generateLegend() {
 		$swatchToTextOffset = ($this->legend_text_height - 6) / 2;
 		$swatchSize = $this->legend_text_height - (2 * $swatchToTextOffset);

@@ -2,6 +2,15 @@
     session_start();
     require_once("../Includes.php");
     
+    function generateColor($colorNr){
+        $colors = array('black', 'silver', 'gray', 'maroon', 'red', 'purple', 'fuscia', 'green',
+                        'lime', 'olive', 'yellow', 'navy', 'navy', 'blue', 'teal', 'aqua');
+        if ($colorNr > sizeof($colors))
+            $colorNr = $colorNr % sizeof($colors);
+            
+        return($colors[$colorNr - 1]);
+    }
+    
     function drawAnalysisGraph($graph){
         $graph->setGradient('red', 'maroon');
         $graph->setDataValues(true);
@@ -10,21 +19,18 @@
     }
     
     function drawPrognosisGraph($graph){
-        $graph->setTitle('PPM Per Container');
         $graph->setBars(false);
         $graph->setLine(true);
-        //$graph->setLineColor('blue', 'green', 'red');
         $graph->setDataPoints(true);
         $graph->setDataPointColor('maroon');
         $graph->setDataValues(true);
         $graph->setDataValueColor('maroon');
         $graph->setLegend(true);
-        //$graph->setLegendTitle("PA1", "PA2", "PA3");
         $graph->createGraph();
     }
     
-    define("CHART_WIDTH", 550);
-    define("CHART_HEIGHT", 200);
+    define("CHART_WIDTH", 1000);
+    define("CHART_HEIGHT", 400);
     
     if (!isset($_GET["chart"])){
         ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Bloga nuoroda");
@@ -223,17 +229,27 @@
                 $padaliniuValandos = OrganizacijosPrognozes::getPadaliniuValandos($paramosPriemones);
                 
                 $chartData = array();
-                foreach ($padaliniuValandos as $menuo){
+                $chartTitles = array();
+                $chartLineColors = array();
+                foreach ($padaliniuValandos as $idPadalinys => $padalinys){
                     $data = array();
-                    foreach ($menuo as $padalinys => $valandos){
+                    
+                    //inicializuojam kiekvieno menesio kiekius
+                    for ($i = 1; $i <= 12; $i++)
+                        $data[$i] = 0;
+                    foreach ($padalinys as $menuo => $valandos){
                         $data[$menuo] = $valandos;
                     }
-                     
+                    $chartData[] = $data;
+                    
+                    $dbPadalinys = new Padaliniai($idPadalinys);
+                    $chartTitles[] = $dbPadalinys->getKodas(); 
+                    $chartLineColors[] = generateColor($idPadalinys);
                 }
-                
-                $chartData = array(array(1=>34, 2=>56, 5=>32), array(1=>25, 2=>13, 3=>90));
-                
+
                 call_user_func_array(array($graph, "addData"), $chartData);
+                call_user_func_array(array($graph, "setLegendTitle"), $chartTitles);
+                call_user_func_array(array($graph, "setLineColor"), $chartLineColors);
                 drawPrognosisGraph($graph);
                 break;
             
