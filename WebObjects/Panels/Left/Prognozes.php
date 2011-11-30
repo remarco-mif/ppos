@@ -12,7 +12,7 @@ class Prognozes extends MainPanel{
         $paramosPriemones = ParamosPriemones::select("1");
         foreach($paramosPriemones as $p){
             $paramosPriemone = new ParamosPriemones($p);
-            $this->paramosPriemones .= "<li id='param{$paramosPriemone->getId()}'>".$paramosPriemone->getPavadinimas()."</li>";
+            $this->paramosPriemones .= "<li id='{$paramosPriemone->getId()}param'>".$paramosPriemone->getPavadinimas()."</li>";
         }
     }
     

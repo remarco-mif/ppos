@@ -5,10 +5,11 @@
 class Manager {
     
     public $class = "home";
-    public $method = "home";
+    public $method = "login";
     public $arguments = array();
     
-    private $classArray = array('home' => 'ManageHome');
+    private $classArray = array('home'  => 'ManageHome',
+                                'admin' => 'ManageAdmin');
     
     public function __construct(){
         $contentVars = array();
@@ -31,7 +32,7 @@ class Manager {
     
     public function open(){
         if(array_key_exists($this->class, $this->classArray)){
-            $class = new $this->classArray[$this->class];
+            $class = new $this->classArray[$this->class]($this->method);
             if(in_array($this->method, get_class_methods($class))){
                 if($this->method != "__construct"){
                     call_user_func_array(array($class, $this->method), $this->arguments);

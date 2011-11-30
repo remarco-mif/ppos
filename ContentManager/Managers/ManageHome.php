@@ -1,12 +1,16 @@
 <?php
 
-    function sortas($a, $b){
-        $aobj = new IS($a);
-        $bobj = new IS($b);
-        return sizeof($bobj->getPadaliniai()) - sizeof($aobj->getPadaliniai());
-    }
-
     class ManageHome {
+        
+        public function __construct($method, $checkType = true){
+            if($checkType == true){
+                if(isset($GLOBALS['login']->user)){
+                    if($GLOBALS['login']->user->isAdmin()){
+                        header("location: index.php?info=admin/".$method);
+                    }
+                }
+            }
+        }
         
         public function home(){
             $page = new Page();
