@@ -1,10 +1,10 @@
 <?php
-    class Prognozes
+    class OrganizacijosPrognozes
     {
         
         /*
             Grazina pasirinktos paramos priemones ir pasirinkto menesio apdorotu paraisku kiekius kiekvieniems metams.
-            Pvz. pasirinktus priemone pa1-1 ir menesi 01, bus grazinami tokie kiekiai: 2008-01 => 15, 2009-01 => 13, 2010=>17, 2010=>19 
+            Pvz. pasirinktus priemone pa1-1 ir menesi 01, bus grazinami tokie kiekiai: 2008 => 15, 2009 => 13, 2010=>17, 2011=>19 
         */
         static public function getMenesioParamosKiekius($idParamosPriemone, $menuo){
             $paramosKiekiai = ParamosKiekiai::select("EXTRACT(MONTH FROM Nuo) = " . $menuo . " AND ParamosPriemone = " . $idParamosPriemone);
@@ -63,6 +63,38 @@
                 }
             }
             return($padaliniuValandos);
+        }
+        
+        
+        /*
+            grazinama kiek valandu ketinama administruoti paramos priemones ateinanciu metu kiekviena menesi.
+            rezultatas: array
+            (
+                [0] => Array
+                (
+                    ['paramosPriemone'] => idParamosPriemone
+                    ['prognozes'] => Array
+                    (
+                        [$menuo] => valandu skaicius
+                        [12] => 345
+                    )
+                )
+            )
+        */
+        static public function getParamosPriemoniuPrognozes($paramosPriemones){
+            $prognozes = array();
+            foreach ($paramosPriemones as $p){
+                $prognoze = array();
+                $prognoze['paramosPriemone'] = $p;
+                $kiekiai = array();
+                for ($i = 1; $i <= 12; $i++){
+                    $kiekiai[$i] = OrganizacijosPrognozes::prognozuotiKieki(OrganizacijosPrognozes::getMenesioParamosKiekius($p, $i));
+                } 
+                        
+                $prognoze['prognozes'] = $kiekiai;
+                $prognozes[] = $prognoze;
+            }
+            return($prognozes);
         }
         
     }

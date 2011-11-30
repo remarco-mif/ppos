@@ -36,9 +36,10 @@
     require_once("XlsParsers/ParamosPriemone.php");
     require_once("XlsParsers/ParamosPriemonesParseris.php");
     require_once("XlsParsers/ParamosKiekiaiParseris.php");
+    
     require_once("Utilities/Importer.php");
     require_once("Utilities/ImageText.php");
-    require_once("Utilities/Prognozes.php");
+    require_once("Utilities/OrganizacijosPrognozes.php");
     
     require_once('phpgraph/phpgraphlib.php');
     require_once('phpgraph/phpgraphlib_pie.php');

@@ -13,18 +13,21 @@
     
     $planuojamiKiekiai = array();
     
-    for ($j = 1; $j <= 27; $j++){
+    for ($j = 1; $j <= 3; $j++){
         $kiekiai = array();
         $paramosPriemone = $j;
         
         for ($i = 1; $i <= 12; $i++){
-            $res = Prognozes::getMenesioParamosKiekius($paramosPriemone, $i);
-            $prognoze = Prognozes::prognozuotiKieki($res);
+            $res = OrganizacijosPrognozes::getMenesioParamosKiekius($paramosPriemone, $i);
+            $prognoze = OrganizacijosPrognozes::prognozuotiKieki($res);
             $kiekiai[$i] = $prognoze;
         }
         $planuojamiKiekiai[$paramosPriemone] =  $kiekiai;
     }
     
-    $valandos = Prognozes::getPadaliniuApkrovimas($planuojamiKiekiai);
+    $valandos = OrganizacijosPrognozes::getPadaliniuApkrovimas($planuojamiKiekiai);
     p($valandos);
+    
+    $prognozes = OrganizacijosPrognozes::getParamosPriemoniuPrognozes(array(1, 2, 3));
+    p($prognozes);
 ?>
