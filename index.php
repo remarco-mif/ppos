@@ -25,9 +25,11 @@
     $pageManager = new Manager();
     
     if(!$GLOBALS['login']->isLogedin()){
-        $pageManager->class = "home";
-        $pageManager->method = "login";
-        Message::setMessage("Neteisingi prisijungimo duomenys!");
+        if(!in_array($pageManager->method, array("login", "logout"))){
+            $pageManager->class = "home";
+            $pageManager->method = "login";
+            Message::setMessage("Neteisingi prisijungimo duomenys!");
+        }
     }
     
     $pageManager->open();
