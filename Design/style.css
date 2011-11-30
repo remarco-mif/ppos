@@ -512,3 +512,12 @@ a:hover {
 .name{
     vertical-align:middle;
 }
+
+.menTd{
+    width:7%;
+    text-align:center;
+}
+
+.tdPav{
+    width:16%;
+}

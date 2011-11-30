@@ -49,7 +49,11 @@ class Mathematics {
         $suma = 0;
         for($i = 0; $i < sizeof($array); $i++){
             if(isset($array[$i + 1])){
-                $suma += $array[$i + 1] - $array[$i];
+                if($array[$i] != 0){
+                    $suma += $array[$i + 1] / $array[$i];
+                }else{
+                    $suma += $array[$i + 1] / 1;
+                }
             }else{
                 break;
             }

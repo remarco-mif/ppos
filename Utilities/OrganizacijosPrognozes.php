@@ -34,7 +34,7 @@
             }
             
             $kof = Mathematics::correlationCof($arr1, $arr2);
-            $prognoze = round($kof * Mathematics::skirtumoSumosVidurkis($arr2) + $arr2[sizeof($arr2) - 1], 0);
+            $prognoze = round(Mathematics::skirtumoSumosVidurkis($arr2) * $arr2[sizeof($arr2) - 1], 0);
             return($prognoze);
         }
         
