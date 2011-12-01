@@ -2,15 +2,6 @@
     session_start();
     require_once("../Includes.php");
     
-    function generateColor($colorNr){
-        $colors = array('black', 'silver', 'gray', 'maroon', 'red', 'purple', 'fuscia', 'green',
-                        'lime', 'olive', 'yellow', 'navy', 'navy', 'blue', 'teal', 'aqua');
-        if ($colorNr > sizeof($colors))
-            $colorNr = $colorNr % sizeof($colors);
-            
-        return($colors[$colorNr - 1]);
-    }
-    
     function drawAnalysisGraph($graph){
         $graph->setGradient('red', 'maroon');
         $graph->setDataValues(true);
@@ -220,12 +211,13 @@
             break;
             
             case "padaliniu_prognoze":
-                if (!isset($_GET["paramos_priemones"])){
+                if ((!isset($_GET["paramos_priemones"])) || (!isset($_GET["padaliniai"]))){
                     ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Bloga nuoroda");
                     exit(0);
                 }
                 
                 $paramosPriemones = explode(",", $_GET["paramos_priemones"]);
+                $rodomiPadaliniai = explode(",", $_GET["padaliniai"]);
                 $padaliniuValandos = OrganizacijosPrognozes::getPadaliniuValandos($paramosPriemones);
                 
                 $chartData = array();
@@ -240,11 +232,14 @@
                     foreach ($padalinys as $menuo => $valandos){
                         $data[$menuo] = $valandos;
                     }
-                    $chartData[] = $data;
                     
-                    $dbPadalinys = new Padaliniai($idPadalinys);
-                    $chartTitles[] = $dbPadalinys->getKodas(); 
-                    $chartLineColors[] = generateColor($idPadalinys);
+                    //tikrinama ar rastas padalinys yra rodomu padaliniu sarase
+                    if (in_array($idPadalinys, $rodomiPadaliniai)){
+                        $chartData[] = $data;
+                        $dbPadalinys = new Padaliniai($idPadalinys);
+                        $chartTitles[] = $dbPadalinys->getKodas(); 
+                        $chartLineColors[] = generateChartColor($idPadalinys);
+                    }
                 }
 
                 call_user_func_array(array($graph, "addData"), $chartData);
