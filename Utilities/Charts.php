@@ -270,6 +270,61 @@
                 call_user_func_array(array($graph, "setLineColor"), $chartLineColors);
                 drawPrognosisGraph($graph);
                 break;
+                
+            case "is_prognoze":
+
+                if ((!isset($_GET["paramos_priemones"])) || (!isset($_GET["is"]))){
+                    ImageText::createTextImage($chartWidth, $chartHeight, "Bloga nuoroda");
+                    exit(0);
+                }
+
+                $chartData = array();
+                //jei nenurodytos jokios paramos priemons
+                if (strlen($_GET["paramos_priemones"]) > 0){ 
+                    $paramosPriemones = explode(",", repairSqlInjection($_GET["paramos_priemones"]));
+                    $isValandos = OrganizacijosPrognozes::getIsValandos($paramosPriemones);
+                
+                    if ($_GET["is"] == "all"){
+                        $rodomosIs = array();
+                        foreach ($isValandos as $idIs => $menesiai){
+                            $rodomosIs[] = $idIs;
+                        }
+                    }
+                    else
+                        $rodomosIs = explode(",", repairSqlInjection($_GET["is"]));             
+
+                    $chartTitles = array();
+                    $chartLineColors = array();
+                    foreach ($isValandos as $idIs => $is){
+                        $data = array();
+                        
+                        //inicializuojam kiekvieno menesio kiekius
+                        for ($i = 1; $i <= 12; $i++)
+                            $data[$i] = 0;
+                        foreach ($is as $menuo => $valandos){
+                            $data[$menuo] = $valandos;
+                        }
+                        
+                        //tikrinama ar rastas padalinys yra rodomu padaliniu sarase
+                        if (in_array($idIs, $rodomosIs)){
+                            $chartData[] = $data;
+                            $chartLineColors[] = generateChartColor($idIs);
+                        }
+                    }
+                }
+                
+                //nerasta pasirinktu padaliniu
+                if (sizeof($chartData) == 0){
+                    $data = array();
+                    $data[1] = 0;
+                    $chartData[] = array(0); 
+                    $chartLineColors[] = 'black';
+                }
+
+                call_user_func_array(array($graph, "addData"), $chartData);
+                call_user_func_array(array($graph, "setLineColor"), $chartLineColors);
+                drawPrognosisGraph($graph);
+                break;
             
             default:
                 ImageText::createTextImage($chartWidth, $chartHeight, "Bloga diagramos rūšis");
