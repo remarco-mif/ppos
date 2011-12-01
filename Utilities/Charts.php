@@ -19,8 +19,8 @@
         $graph->createGraph();
     }
     
-    define("CHART_WIDTH", 550);
-    define("CHART_HEIGHT", 200);
+    define("STANDARD_CHART_WIDTH", 550);
+    define("STANDARD_CHART_HEIGHT", 200);
     
     if (!isset($_GET["chart"])){
         ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Bloga nuoroda");
@@ -30,14 +30,14 @@
     $chart = repairSqlInjection($_GET["chart"]);
     //$chartType = repairSqlInjection($_GET["type"]);
     
-    $chartWidth = CHART_WIDTH;
-    $chartHeight = CHART_HEIGHT;
+    $chartWidth = STANDARD_CHART_WIDTH;
+    $chartHeight = STANDARD_CHART_HEIGHT;
     if (isset($_GET["width"]))
         $chartWidth = (int)$_GET["width"];
     if (isset($_GET["height"]))
         $chartWidth = (int)$_GET["height"];
     
-    $graph = new PHPGraphLib(chartWidth, chartHeight);
+    $graph = new PHPGraphLib($chartWidth, $chartHeight);
     
     switch ($chart){
         case "padaliniu_paraiskos":
