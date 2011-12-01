@@ -2,7 +2,10 @@
     session_start();
     require_once("../Includes.php");
     
-       $valandos = OrganizacijosPrognozes::getPadaliniuValandos(array(1,2));
+    $res = explode(",", "");
+    var_dump($res);
+    
+       $valandos = OrganizacijosPrognozes::getPadaliniuValandos(array(100));
     p($valandos);
     
     print("<br/>------------------------------------<br/>");
