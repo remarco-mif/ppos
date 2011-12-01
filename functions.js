@@ -93,7 +93,7 @@ function setImage(diagrama, id, paramosPriemones, duom, width, height){
     }else{
         tipas = "padaliniai";
         w = img1_width;
-        h = img2_height;
+        h = img1_height;
     }
     img.src = "Utilities/Charts.php?chart=" + diagrama + "&paramos_priemones=" + paramosPriemones + "&" + tipas + "=" + duom + "&width=" + w + "&height=" + h;
 }
@@ -137,12 +137,13 @@ function getAktyviosIs(inArray){
 function zoomIn(chartType){
     var diagrama = "";
     var chart = "";
-    var img1 = document.getElementById("chart1");
     var paramPriem = getAktyviasParamosPriemones(false);
+    var img = "";
     var data = "";
     var w = 0;
     var h = 0;
     if(chartType == "padalinys"){
+        img = document.getElementById("chart1");
         diagrama = "padaliniu_prognoze";
         chart = "chart1";
         img1_width += 137;
@@ -151,6 +152,7 @@ function zoomIn(chartType){
         w = img1_width;
         h = img1_height;
     }else{
+        img = document.getElementById("chart2");
         diagrama = "is_prognoze";
         chart = "chart2";
         img2_width += 137;
@@ -159,6 +161,8 @@ function zoomIn(chartType){
         w = img2_width;
         h = img2_height;
     }
+    img.width = w;
+    img.height = h;
     setImage(diagrama, chart, paramPriem, data, w, h);
 }
 
@@ -189,6 +193,8 @@ function zoomOut(chartType){
         w = img2_width;
         h = img2_height;
     }
+    img.width = w;
+    img.height = h;
     setImage(diagrama, chart, paramPriem, data, w, h);
 }
 
