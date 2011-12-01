@@ -9,7 +9,7 @@
     
     function generateChartColor($colorNr){
         $colors = array('black', 'gray', 'maroon', 'red', 'purple', 'fuscia', 'green',
-                        'lime', 'olive', 'yellow', 'navy', 'blue', 'teal', 'aqua');
+                        'lime', 'olive', 'navy', 'blue', 'teal', 'aqua');
         if ($colorNr > sizeof($colors))
             $colorNr = $colorNr % sizeof($colors);
             

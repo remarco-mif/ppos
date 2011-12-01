@@ -16,12 +16,11 @@
         $graph->setDataPointColor('maroon');
         $graph->setDataValues(true);
         $graph->setDataValueColor('maroon');
-        $graph->setLegend(true);
         $graph->createGraph();
     }
     
-    define("CHART_WIDTH", 1000);
-    define("CHART_HEIGHT", 400);
+    define("CHART_WIDTH", 550);
+    define("CHART_HEIGHT", 200);
     
     if (!isset($_GET["chart"])){
         ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Bloga nuoroda");
@@ -159,8 +158,8 @@
                 exit(0);
             }
             
-            $dataNuo = $_GET["menuoNuo"] . "-01";
-            $dataIki = $_GET["menuoIki"] . "-01";
+            $dataNuo = repairSqlInjection($_GET["menuoNuo"]) . "-01";
+            $dataIki = repairSqlInjection($_GET["menuoIki"]) . "-01";
             if ((ObjectValidation::validateDate($dataNuo) == false) || (ObjectValidation::validateDate($dataIki) == false)){
                 ImageText::createTextImage(CHART_WIDTH, CHART_HEIGHT, "Blogas datos formatas");
                 exit(0);
@@ -216,7 +215,7 @@
                     exit(0);
                 }
                 
-                $paramosPriemones = explode(",", $_GET["paramos_priemones"]);
+                $paramosPriemones = explode(",", repairSqlInjection($_GET["paramos_priemones"]));
                 $padaliniuValandos = OrganizacijosPrognozes::getPadaliniuValandos($paramosPriemones);
                 
                 if ($_GET["padaliniai"] == "all"){
@@ -226,7 +225,7 @@
                     }
                 }
                 else
-                    $rodomiPadaliniai = explode(",", $_GET["padaliniai"]);
+                    $rodomiPadaliniai = explode(",", repairSqlInjection($_GET["padaliniai"]));
                     
                 
                 
@@ -246,14 +245,11 @@
                     //tikrinama ar rastas padalinys yra rodomu padaliniu sarase
                     if (in_array($idPadalinys, $rodomiPadaliniai)){
                         $chartData[] = $data;
-                        $dbPadalinys = new Padaliniai($idPadalinys);
-                        $chartTitles[] = $dbPadalinys->getKodas(); 
                         $chartLineColors[] = generateChartColor($idPadalinys);
                     }
                 }
 
                 call_user_func_array(array($graph, "addData"), $chartData);
-                call_user_func_array(array($graph, "setLegendTitle"), $chartTitles);
                 call_user_func_array(array($graph, "setLineColor"), $chartLineColors);
                 drawPrognosisGraph($graph);
                 break;
