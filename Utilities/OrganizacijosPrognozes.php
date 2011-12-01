@@ -145,6 +145,8 @@
             }
             
             $padaliniuValandos = OrganizacijosPrognozes::getPadaliniuApkrovimas($planuojamiKiekiai);
+            ksort($padaliniuValandos);
+            
             return($padaliniuValandos);
         }
         
@@ -166,14 +168,23 @@
             )
         */
         static public function getIsValandos($paramosPriemones){
-            $padaliniuValandos = OrganizacijosPrognozes::getPadaliniuValandos($paramosPriemone);
+            $padaliniuValandos = OrganizacijosPrognozes::getPadaliniuValandos($paramosPriemones);
             $isValandos = array();
-            foreach($padaliniuValandos as $padalinys => $menesiai){
-                foreach ($menesiai as $menuo){
-                   
+            foreach($padaliniuValandos as $idPadalinys => $menesiai){
+                $is = IS_Padaliniai::getNaudojamosIs($idPadalinys);
+                $is = $is["data"];
+
+                foreach ($menesiai as $menuo => $valandos){
+                    foreach ($is as $i){
+                        if (!isset($isValandos[$i["IS"]][$menuo]))
+                            $isValandos[$i["IS"]][$menuo] = $valandos;
+                        else 
+                            $isValandos[$i["IS"]][$menuo] += $valandos;
+                    }
                 }
             }
             
+            ksort($isValandos);
             return($isValandos);
         }
         

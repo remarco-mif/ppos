@@ -1,8 +1,8 @@
 <?php
     class IS_Padaliniai
     {
-        static public function getNaudojamasIs($padalinys){
-            $info = db::select("SELECT IS WHERE Padalinys = " . $padalinys);
+        static public function getNaudojamosIs($padalinys){
+            $info = db::select("SELECT `IS` FROM IS_Padaliniai WHERE Padalinys = " . $padalinys);
             return($info);
         }
     }

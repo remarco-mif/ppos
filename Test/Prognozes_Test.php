@@ -2,9 +2,11 @@
     session_start();
     require_once("../Includes.php");
     
-    $valandos = OrganizacijosPrognozes::getPadaliniuValandos(array(2));
+       $valandos = OrganizacijosPrognozes::getPadaliniuValandos(array(1,2));
     p($valandos);
-
-    $is = IS_Padaliniai::getNaudojamosIs(1);
-    p($is);
+    
+    print("<br/>------------------------------------<br/>");
+    
+   $valandos = OrganizacijosPrognozes::getIsValandos(array(1));
+    p($valandos);
 ?>
