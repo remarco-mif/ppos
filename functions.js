@@ -1,3 +1,8 @@
+var img1_width = 548;
+var img1_height = 200;
+var img2_width = 548;
+var img2_height = 200;
+
 function validateDate(strDate){
    if (new Date(strDate) == "Invalid Date")
        return false;
@@ -69,34 +74,229 @@ function analizeppav(){
     }
 }
 
+function setImage(diagrama, id, paramosPriemones, duom, width, height){
+    var img = document.getElementById(id);
+    var tipas = "is";
+    var w = 0;
+    var h = 0;
+    if(width != null){
+        img.width = width;
+    }
+    if(height != null){
+        img.height = height;
+    }
+    img.src = "Design/images/loading.gif";
+    if(diagrama == "is_prognoze"){
+        tipas = "is";
+        w = img2_width;
+        h = img2_height;
+    }else{
+        tipas = "padaliniai";
+        w = img1_width;
+        h = img2_height;
+    }
+    img.src = "Utilities/Charts.php?chart=" + diagrama + "&paramos_priemones=" + paramosPriemones + "&" + tipas + "=" + duom + "&width=" + w + "&height=" + h;
+}
+
+function getAktyviasParamosPriemones(inArray){
+    var els = [ ];
+    $('#prognozes > .active').each(function () {
+        els.push(parseInt($(this).attr("id")));
+    });
+    if(inArray == true){
+        return els;
+    }
+    var joinedElems = els.join(",");
+    return joinedElems;
+}
+
+function getAktyvusPadaliniai(inArray){
+    var pad = [ ];
+    $("#Pad > .rodyti").each(function () {
+        pad.push(parseInt($(this).attr("id")));
+    });
+    if(inArray == true){
+        return pad;
+    }
+    var joinedPadaliniai = pad.join(",");
+    return joinedPadaliniai;
+}
+
+function getAktyviosIs(inArray){
+    var is = [ ];
+    $("#Is > .rodyti").each(function () {
+        is.push(parseInt($(this).attr("id")));
+    });
+    if(inArray == true){
+        return is;
+    }
+    var joinedIs = is.join(",");
+    return joinedIs;
+}
+
+function zoomIn(chartType){
+    var diagrama = "";
+    var chart = "";
+    var img1 = document.getElementById("chart1");
+    var paramPriem = getAktyviasParamosPriemones(false);
+    var data = "";
+    var w = 0;
+    var h = 0;
+    if(chartType == "padalinys"){
+        diagrama = "padaliniu_prognoze";
+        chart = "chart1";
+        img1_width += 137;
+        img1_height += 50;
+        data = getAktyvusPadaliniai(false);
+        w = img1_width;
+        h = img1_height;
+    }else{
+        diagrama = "is_prognoze";
+        chart = "chart2";
+        img2_width += 137;
+        img2_height += 50;
+        data = getAktyviosIs(false);
+        w = img2_width;
+        h = img2_height;
+    }
+    setImage(diagrama, chart, paramPriem, data, w, h);
+}
+
+function zoomOut(chartType){
+    var diagrama = "";
+    var chart = "";
+    var img = "";
+    var paramPriem = getAktyviasParamosPriemones(false);
+    var data = "";
+    var w = 0;
+    var h = 0;
+    if(chartType == "padalinys"){
+        img = document.getElementById("chart1");
+        diagrama = "padaliniu_prognoze";
+        chart = "chart1";
+        img1_width -= 137;
+        img1_height -= 50;
+        data = getAktyvusPadaliniai(false);
+        w = img1_width;
+        h = img1_height;
+    }else{
+        img = document.getElementById("chart2");
+        diagrama = "is_prognoze";
+        chart = "chart2";
+        img2_width -= 137;
+        img2_height -= 50;
+        data = getAktyviosIs(false);
+        w = img2_width;
+        h = img2_height;
+    }
+    setImage(diagrama, chart, paramPriem, data, w, h);
+}
+
+
+
+
+
 (function () {
     $(document).ready(ready);
 })();
 
 function ready() {
+    
+    // Paspaudus ant paramos priemones
     $('#prognozes > li').click(function () {
        $(this).toggleClass("active"); 
     });
     
-    $('#search-submit, #prognozes > li').click(function () {
-        var els = [ ];
+    // Paspaudus ant paramos priemones
+    $('#prognozes > li').click(function () {
+        var img1 = document.getElementById("chart1");
+        var img2 = document.getElementById("chart2");
+        var joinedElem = getAktyviasParamosPriemones(false);
+        var els = getAktyviasParamosPriemones(true);
         
-        $('#prognozes > .active').each(function () {
-            els.push(parseInt($(this).attr("id")));
-        });
+        img1_width = 548;
+        img1_height = 200;
+        img1.width = img1_width;
+        img1.height = img1_height;
         
-        var joinedElem = els.join(",");
+        img1_width = 548;
+        img1_height = 200;
+        img2.width = img2_width;
+        img2.height = img2_height;
+        
+        if(els.length > 0){
+            if($("#PadZooms").children().length == 0){
+                $("#PadZooms").append($("<span/>").text("Zoom in").click(function(){
+                    zoomIn("padalinys");
+                }));
+                $("#PadZooms").append($("<span/>").text("Zoom out").click(function(){
+                    if(img1_width != 548){
+                        zoomOut("padalinys");
+                    }
+                }));
+            }
+            if($("#IsZooms").children().length == 0){
+                $("#IsZooms").append($("<span/>").text("Zoom in").click(function(){
+                    zoomIn("is");
+                }));
+                $("#IsZooms").append($("<span/>").text("Zoom out").click(function(){
+                    if(img2_width != 548){
+                        zoomOut("is");
+                    }
+                }));
+            }
+        }else{
+            $("#IsZooms").empty();
+            $("#PadZooms").empty();
+        }
        
         $.ajax({
             url: "AjaxActions/User/PrognoziuLenteles.php?param=" + joinedElem,
             success: function(data){
-                $("#bandau").html(data);
+                $("#ProgTable").html(data);
             }
         });
+        
+        $.ajax({
+            url: "AjaxActions/User/ParamuPadaliniai.php?param=" + joinedElem,
+            success: function(data){
+                $("#PadButtons").html(data);
+            }
+        });
+        
+        $.ajax({
+            url: "AjaxActions/User/ParamuIs.php?param=" + joinedElem,
+            success: function(data){
+                $("#IsButtons").html(data);
+            }
+        });
+        
+        setImage("padaliniu_prognoze", "chart1", joinedElem, "all", null, null);
+        setImage("is_prognoze", "chart2", joinedElem, "all", null, null);
     });
     
+    // Paspaudus enter ant laukeliu duomenu analizei
     $('#data').live("keydown", function (event) {
         if (event.keyCode == 13)
             analizeapmps();
+    });
+    
+    // Paspaudus ant padalinio
+    $("#Pad > span").live("click", function(){
+        $(this).toggleClass("active");
+        $(this).toggleClass("rodyti");
+        var joinedElem = getAktyviasParamosPriemones(false);
+        var joinedPadaliniai = getAktyvusPadaliniai(false);
+        
+        setImage("padaliniu_prognoze", "chart1", joinedElem, joinedPadaliniai, null, null);
+    });
+    
+    $("#Is > span").live("click", function(){
+        $(this).toggleClass("active");
+        $(this).toggleClass("rodyti");
+        var joinedElem = getAktyviasParamosPriemones(false);
+        var joinedIs = getAktyviosIs(false);
+        
+        setImage("is_prognoze", "chart2", joinedElem, joinedIs, null, null);
     });
 }

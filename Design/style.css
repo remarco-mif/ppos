@@ -521,3 +521,83 @@ a:hover {
 .tdPav{
     width:16%;
 }
+
+#Pad > span{
+    margin:0px 2px 0px 2px;
+    padding:2px 2px 2px 2px;
+    font-size:10px;
+    color:white;
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+#Is > span{
+    margin:0px 2px 0px 2px;
+    padding:2px 2px 2px 2px;
+    font-size:10px;
+    color:white;
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+#Pad > span:hover{
+    font-size:12px;
+}
+
+#Is > span:hover{
+    font-size:12px;
+}
+
+#Pad > span.active{
+    border:none;
+    font-weight:normal;
+}
+
+#Is > span.active{
+    border:none;
+    font-weight:normal;
+}
+
+#PadZooms > span{
+    background-color:#CA4C44;
+    margin:0px 2px 0px 2px;
+    padding:5px 5px 5px 5px;
+    font-size:10px;
+    color:white;
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+#IsZooms > span{
+    background-color:#CA4C44;
+    margin:0px 2px 0px 2px;
+    padding:5px 5px 5px 5px;
+    font-size:10px;
+    color:white;
+    border-style:solid;
+    border-width:1px;
+    border-color:black;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+#chart1Div{
+    width:565px;
+    height:215px;
+    overflow:auto;
+}
+
+#chart2Div{
+    width:565px;
+    height:215px;
+    overflow:auto;
+}
