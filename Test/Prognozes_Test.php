@@ -5,6 +5,6 @@
     $valandos = OrganizacijosPrognozes::getPadaliniuValandos(array(2));
     p($valandos);
 
-    IS_Padaliniai::
-   
+    $is = IS_Padaliniai::getNaudojamosIs(1);
+    p($is);
 ?>
