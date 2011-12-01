@@ -35,7 +35,7 @@
     if (isset($_GET["width"]))
         $chartWidth = (int)$_GET["width"];
     if (isset($_GET["height"]))
-        $chartWidth = (int)$_GET["height"];
+        $chartHeight = (int)$_GET["height"];
     
     $graph = new PHPGraphLib($chartWidth, $chartHeight);
     
