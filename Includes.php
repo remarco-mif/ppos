@@ -25,6 +25,7 @@
     require_once("DbObject/ParamosPriemones.php");
     require_once("DbObject/ParamosAdministravimas.php");
     require_once("DbObject/User.php");
+    require_once("DbObject/IS_Padaliniai.php");
     
     require_once("XlsParsers/excel_reader2.php");
     require_once("XlsParsers/IS_PadaliniaiParseris.php");
