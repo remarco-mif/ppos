@@ -255,6 +255,12 @@
                         $chartLineColors[] = generateChartColor($idPadalinys);
                     }
                 }
+                
+                if (sizeof($chartData) == 0){
+                    $data = array();
+                    $data[1] = 0;
+                    $chartData[] = $data; 
+                }
 
                 call_user_func_array(array($graph, "addData"), $chartData);
                 call_user_func_array(array($graph, "setLineColor"), $chartLineColors);
