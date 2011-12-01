@@ -123,6 +123,16 @@
                     [10] (menuo) => 21 (kiekis)
                 )
             )
+            
+            return:
+            padaliniuValandos: Array
+            (
+                [1] (padalinys) => Array
+                (
+                    [1] (menuo) => valandos
+                    [12] (menuo) => 456
+                )
+            )
         */
         static public function getPadaliniuValandos($paramosPriemones){
             $planuojamiKiekiai = array();
@@ -133,7 +143,38 @@
                 }
                 $planuojamiKiekiai[$p] = $paraiskuKiekiai;
             }
-            return(OrganizacijosPrognozes::getPadaliniuApkrovimas($planuojamiKiekiai));
+            
+            $padaliniuValandos = OrganizacijosPrognozes::getPadaliniuApkrovimas($planuojamiKiekiai);
+            return($padaliniuValandos);
+        }
+        
+        
+        /*
+            paramosPriemones: Array
+            (
+                [1] (idParamosPriemone)
+            )
+            
+            return:
+            isValandos: Array
+            (
+                [1] (Informacine Sistema) => Array
+                (
+                    [1] (menuo) => valandos
+                    [12] (menuo) => 456
+                )
+            )
+        */
+        static public function getIsValandos($paramosPriemones){
+            $padaliniuValandos = OrganizacijosPrognozes::getPadaliniuValandos($paramosPriemone);
+            $isValandos = array();
+            foreach($padaliniuValandos as $padalinys => $menesiai){
+                foreach ($menesiai as $menuo){
+                   
+                }
+            }
+            
+            return($isValandos);
         }
         
         /*

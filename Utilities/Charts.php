@@ -217,8 +217,18 @@
                 }
                 
                 $paramosPriemones = explode(",", $_GET["paramos_priemones"]);
-                $rodomiPadaliniai = explode(",", $_GET["padaliniai"]);
                 $padaliniuValandos = OrganizacijosPrognozes::getPadaliniuValandos($paramosPriemones);
+                
+                if ($_GET["padaliniai"] == "all"){
+                    $rodomiPadaliniai = array();
+                    foreach ($padaliniuValandos as $padalinys => $menesiai){
+                        $rodomiPadaliniai[] = $padalinys;
+                    }
+                }
+                else
+                    $rodomiPadaliniai = explode(",", $_GET["padaliniai"]);
+                    
+                
                 
                 $chartData = array();
                 $chartTitles = array();
