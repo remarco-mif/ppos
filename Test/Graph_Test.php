@@ -12,7 +12,7 @@
     $graph->setTitle('PPM Per Container');
     $graph->setBars(false);
     $graph->setLine(true);
-    $graph->setLineColor('aqua', 'green', 'red');
+    $graph->setLineColor('#FF0000', 'green', 'red');
     $graph->setDataPoints(true);
     $graph->setDataPointColor('maroon');
     $graph->setDataValues(true);
