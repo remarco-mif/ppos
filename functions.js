@@ -305,4 +305,16 @@ function ready() {
         
         setImage("is_prognoze", "chart2", joinedElem, joinedIs, null, null);
     });
+    
+    $("td.tdPav").live("mouseenter", function(){
+        var pavadinimas = $(this).attr("pavadinimas");
+        $(this).css("background-color", "#CA4C44");
+        $(this).css("color", "white");
+        $(this).parent().after("<tr id='priemoneEmpty'><td colspan='13' style='background-color:#CA4C44; color:white;'>" + pavadinimas + "</td></tr>");
+    });
+    
+    $("td.tdPav").live("mouseout", function(){
+        $(this).css("background-color", "white");
+        $("#priemoneEmpty").remove();
+    });
 }

@@ -16,7 +16,7 @@ class ParamosPriemoniuPrognoziuLentele extends MainPanel{
         $prog = $ParamosPriemone['prognozes'];
         $design =<<<FFF
             <tr>
-                <td class="tdPav">{$paramPriemone->getKodas()}</td>
+                <td class="tdPav" pavadinimas="{$paramPriemone->getPavadinimas()}">{$paramPriemone->getKodas()}</td>
                 <td class="menTd">{$prog[1]}</td>
                 <td class="menTd">{$prog[2]}</td>
                 <td class="menTd">{$prog[3]}</td>
@@ -38,9 +38,9 @@ FFF;
         $this->content = <<<FFF
         <div class="post">
             <p style="color:#CA4C44;">Paramos priemoniu prognoziu lentele:</p>
-            <table width="100%">
+            <table width="100%" cellpadding="0px" cellspacing="0px">
                 <tr>
-                    <td class="tdPav"><b>Par. Pr.</b></td>
+                    <td class="tdPavv"><b>Par. Pr.</b></td>
                     <td class="menTd"><b>01</b></td>
                     <td class="menTd"><b>02</b></td>
                     <td class="menTd"><b>03</b></td>

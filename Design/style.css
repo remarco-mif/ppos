@@ -520,6 +520,7 @@ a:hover {
 
 .tdPav{
     width:16%;
+    cursor:pointer;
 }
 
 #Pad > span{
