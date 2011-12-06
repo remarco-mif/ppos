@@ -35,10 +35,9 @@ class Page extends HTMLPage{
                 <div id="header" class="container">
                     <div id="menu">
                         <ul>
-                            <li class="current_page_item"><a href="?info=home/duom_anal">Duomenų analizė</a></li>
+                            <li><a href="?info=home/duom_anal">Duomenų analizė</a></li>
                             <li><a href="?info=home/prognozes">Prognozės</a></li>
                             <li><a href="?info=home/logout">Atsijungti</a></li>
-                            <li><a href="#">Pagalba</a></li>
                         </ul>
                     </div>
                 </div>

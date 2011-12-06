@@ -212,6 +212,11 @@ function zoomOut(chartType){
 
 function ready() {
     
+    $("#menu a").live("mouseenter", function(){
+        var hintas = $(this).attr("hintas");
+        $("#hint").text(hintas);
+    });
+    
     $("#ImporterForm").submit(function(){
         this.target = "uploadTarget";
     });
@@ -345,7 +350,7 @@ function ready() {
     
     $("td.tdPav").live("mouseout", function(){
         $(this).css("background-color", "white");
-        $(this).css("color", "#8A8985");
+        $(this).css("color", "red");
         $("#priemoneEmpty").remove();
     });
     
