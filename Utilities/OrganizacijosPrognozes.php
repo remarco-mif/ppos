@@ -98,8 +98,12 @@
             
             foreach($planuojamiKiekiai as $paramosPriemone => $kiekiai){
                 $padaliniai = ParamosAdministravimas::getPadaliniai($paramosPriemone);
-                foreach ($kiekiai as $menuo => $kiekis){
-                    foreach ($padaliniai as $p){
+                foreach ($padaliniai as $p){
+                    for ($i = 1; $i <= 12; $i++){
+                        $padaliniuValandos[$p["Padalinys"]][$i] = 0;
+                    }
+                    
+                    foreach ($kiekiai as $menuo => $kiekis){
                         if (!isset($padaliniuValandos[$p["Padalinys"]][$menuo]))
                             $padaliniuValandos[$p["Padalinys"]][$menuo] = $kiekis * $p["Valandos"];
                         else
@@ -107,6 +111,7 @@
                     }
                 }
             }
+            
             return($padaliniuValandos);
         }        
         
@@ -263,23 +268,71 @@
         static public function getTinkamiausiasLaikasPadalinioRemontui($idPadalinys){
             $paramosPriemones = ParamosPriemones::select("1");
             $padaliniuValandos = self::getPadaliniuValandos($paramosPriemones);
+            $prognozuojamiMenesiai = self::getPrognozuojamiMenesiai();
 
-            $minValandos = ($padaliniuValandos[$idPadalinys][12] + $padaliniuValandos[$idPadalinys][1]) / 2;
-            $minMenesiai = array(1, 12);
-            foreach ($padaliniuValandos[$idPadalinys] as $menuo => $valandos){
-                $kitasMenuo = array();
-                $kitasMenuo["value"] = next($padaliniuValandos[$idPadalinys]);
-                $kitasMenuo["key"] = key($padaliniuValandos[$idPadalinys]);
-                print("next: " . $kitasMenuo["value"] . "<br>");
-                $vidurkis = ($valandos + $kitasMenuo["value"]) / 2;
-                prev($padaliniuValandos[$idPadalinys]);
-                if ($vidurkis < $minValandos){
-                    $minVidurkis = $vidurkis;
-                    $minMenesiai = array($menuo, $kitasMenuo["key"]);
-                }
+            $valanduVidurkis = self::padaliniuMenesiuValanduVidurkis($padaliniuValandos[$idPadalinys], $prognozuojamiMenesiai, 1);
+            $minValandos = $valanduVidurkis["valandos"];
+            $minMenesiai = $valanduVidurkis["menesiai"];
+            
+            $i = 0;
+            foreach ($prognozuojamiMenesiai as $menuo => $metaiMenuo){
+                $i++;
+                if ($i < 12){
+                    $valanduVidurkis = self::padaliniuMenesiuValanduVidurkis($padaliniuValandos[$idPadalinys], $prognozuojamiMenesiai, $i);
+                    if ($valanduVidurkis["valandos"] < $minValandos){
+                        $minValandos = $valanduVidurkis["valandos"];
+                        $minMenesiai = $valanduVidurkis["menesiai"];
+                    }
+                } 
             }
             
             return($minMenesiai);
+        }
+        
+        /*
+            pagalbine funkcija, kuria naudoja funkcija getTinkamiausiasLaikasPadalinioRemontui.
+            Ji paskaiciuoja keliu menesiu valandu vidurki, t.y. jei tikrinamuose menesiuose nera ziemos menesio,
+            tai vedamas vidurkis is dvieju menesiu, jei yra bent vienas ziemos menesis - vidurkis vedamas is triju menesiu.
+            
+            padalinioValandos: Array
+            (
+                [1] (menuo) => valandos
+                [12] (menuo) => 456
+            )
+            
+            $prognozuojamiMenesiai: Array
+            (
+                [6] => "2012-06"
+                [12] => "2012-12"
+            )
+            
+            $menesioPozicija - elemento numeris, nuo kurio bus pradedamas skaiciuoti vidurkis. Pirmas elementas = 1;
+        */
+        static private function padaliniuMenesiuValanduVidurkis($padalinioValandos, $prognozuojamiMenesiai, $menesioPozicija){
+            $menesiuSuma = 0;
+            $menesiuSkaicius = 2;
+            $valanduVidurkis = 0;
+            $menesiai = array();
+            
+            $i = 0;
+            foreach ($prognozuojamiMenesiai as $menuo => $metaiMenuo){
+                $i++;
+                if ($i >= $menesioPozicija){
+                    if (($menuo == 1) || ($menuo == 2) || ($menuo == 12)) //ziema
+                        $menesiuSkaicius = 3;
+                    
+                    $valanduVidurkis += $padalinioValandos[$menuo];
+                    $menesiai[] = $menuo;
+                    $menesiuSuma++;
+                    if ($menesiuSuma == $menesiuSkaicius)
+                        break;
+                }
+            }
+            
+            if ($menesiuSuma < $menesiuSkaicius)
+                $menesiuSuma = 1;
+            
+            return(array("valandos" => ($valanduVidurkis / $menesiuSuma), "menesiai" => $menesiai));
         }
         
         /*
