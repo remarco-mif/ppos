@@ -219,9 +219,44 @@
             return($prognozes);
         }
         
+        /*
+            Grazina menesio numeri, kuomet IS yra maziausiai uzimta.
+        */
         static public function getTinkamiausiasLaikasIsAtnaujimui($idIs)
         {
+            $paramosPriemones = ParamosPriemones::select("1");
+            $isValandos = self::getIsValandos($paramosPriemones);
             
+            $minValandos = -1;
+            $minMenuo = -1;
+            foreach ($isValandos[$idIs] as $menuo => $valandos){
+                if (($valandos < $minValandos) || ($minValandos == -1)){
+                    $minValandos = $valandos;
+                    $minMenuo = $menuo;
+                }
+            }
+            
+            return($minMenuo);
+        }
+        
+        /*
+            Grazina menesio numeri, kuomet padalinys yra maziausiai uzimta.
+        */
+        static public function getTinkamiausiasLaikasPadalinioKvalifikacijai($idPadalinys)
+        {
+            $paramosPriemones = ParamosPriemones::select("1");
+            $padaliniuValandos = self::getPadaliniuValandos($paramosPriemones);
+            
+            $minValandos = -1;
+            $minMenuo = -1;
+            foreach ($padaliniuValandos[$idPadalinys] as $menuo => $valandos){
+                if (($valandos < $minValandos) || ($minValandos == -1)){
+                    $minValandos = $valandos;
+                    $minMenuo = $menuo;
+                }
+            }
+            
+            return($minMenuo);
         }
         
         /*
