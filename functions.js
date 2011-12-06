@@ -315,6 +315,7 @@ function ready() {
     
     $("td.tdPav").live("mouseout", function(){
         $(this).css("background-color", "white");
+        $(this).css("color", "#8A8985");
         $("#priemoneEmpty").remove();
     });
 }
