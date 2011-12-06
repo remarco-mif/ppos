@@ -3,7 +3,7 @@
     require_once("../Includes.php");
     
     //p(OrganizacijosPrognozes::getTinkamiausiasLaikasPadalinioKvalifikacijai(7));
-    p(OrganizacijosPrognozes::getTinkamiausiasLaikasPadalinioRemontui(1));
+    p(OrganizacijosPrognozes::getTinkamiausiasLaikasPadalinioRemontui(8));
     
     $valandos = OrganizacijosPrognozes::getPadaliniuValandos(array(100));
     p($valandos);
