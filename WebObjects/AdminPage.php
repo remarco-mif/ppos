@@ -27,7 +27,7 @@ class AdminPage extends HTMLPage{
             <title>PPOS</title>
             <link href="Design/style.css" rel="stylesheet" type="text/css" media="screen" />
             <script src="jquery-1.7.min.js"></script>
-            <script src="functions.js"></script>
+            <script src="JS/functions.js"></script>
         </head>
         <body>
             <div id="wrapper">

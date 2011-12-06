@@ -207,6 +207,30 @@ function zoomOut(chartType){
 })();
 
 function ready() {
+   
+    // User delete
+    $("span.delUser").click(function(){
+        var id = $(this).attr("userid");
+        var elem = this;
+
+        $.ajax({
+            url: "AjaxActions/Admin/DeleteUser.php?id=" + id,
+            success: function(data){
+                var mas = data.split(":::", 2);
+                if(mas[0] == "true"){
+                    $(elem).parent().parent().remove();
+                }else{
+                    var kids = $(elem).parent().parent().children();
+                    var text = $(kids[0]).text();
+                    $(kids[0]).text(text + " " + mas[1])
+                }
+            }
+        });
+
+//        var kids = $(this).parent().parent().children();
+//        var text = $(kids[0]).text();
+//        $(kids[0]).text(text + " Error!!!");
+    });
     
     // Paspaudus ant paramos priemones
     $('#prognozes > li').click(function () {
@@ -318,4 +342,5 @@ function ready() {
         $(this).css("color", "#8A8985");
         $("#priemoneEmpty").remove();
     });
+    
 }

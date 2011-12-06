@@ -24,8 +24,6 @@
         $prog = array();
     }
     
-    
-    
     $panel = new PadalyniuPrieDiagramosMygtukai($prog);
     echo $panel->getHtml();
 

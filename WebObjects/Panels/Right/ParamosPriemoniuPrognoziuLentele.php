@@ -37,10 +37,10 @@ FFF;
     protected function htmlContent(){
         $this->content = <<<FFF
         <div class="post">
-            <p style="color:#CA4C44;">Paramos priemoniu prognoziu lentele:</p>
+            <p style="color:#CA4C44;">Paramos priemonių prognozių lentelė:</p>
             <table width="100%" cellpadding="0px" cellspacing="0px">
                 <tr>
-                    <td class="tdPavv"><b>Par. Pr.</b></td>
+                    <td class="tdPavv"><b>Priemonė</b></td>
                     <td class="menTd"><b>01</b></td>
                     <td class="menTd"><b>02</b></td>
                     <td class="menTd"><b>03</b></td>
