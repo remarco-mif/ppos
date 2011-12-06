@@ -219,5 +219,31 @@
             return($prognozes);
         }
         
+        static public function getTinkamiausiasLaikasIsAtnaujimui($idIs)
+        {
+            
+        }
+        
+        /*
+            Grazina prognozuojamu menesiu stringu masyva.
+            
+            $menesiai: Array
+            (
+                [0] => "2012-01"
+                [1] => "2012-02"
+            )
+        */
+        static public function getPrognozuojamiMenesiai()
+        {
+            $menesiai = array();
+            $menuo = date('Y-m-d');
+            for ($i = 1; $i <= 12; $i++){
+                $menuo = date('Y-m', strtotime("$menuo + 1 months"));
+                $menesiai[] = $menuo;
+            }
+            
+            return($menesiai);
+        }
+        
     }
 ?>

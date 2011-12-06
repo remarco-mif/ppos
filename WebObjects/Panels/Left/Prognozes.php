@@ -19,7 +19,7 @@ class Prognozes extends MainPanel{
     protected function htmlContent(){
         $this->content = <<<FFF
         <li>
-            <h2>Filtras:</h2>
+            <h2>Paramos priemonės:</h2>
             <div id="_prognozes" style="padding-left:30px;">
                 <ul id="prognozes">
                 {$this->paramosPriemones}

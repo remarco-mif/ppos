@@ -16,6 +16,7 @@
         $graph->setDataPointColor('maroon');
         $graph->setDataValues(true);
         $graph->setDataValueColor('maroon');
+        $graph->setupXAxis(25);
         $graph->createGraph();
     }
     
@@ -240,14 +241,18 @@
 
                     $chartTitles = array();
                     $chartLineColors = array();
+                    
+                    $menesiai = OrganizacijosPrognozes::getPrognozuojamiMenesiai();
+                    
                     foreach ($padaliniuValandos as $idPadalinys => $padalinys){
                         $data = array();
                         
                         //inicializuojam kiekvieno menesio kiekius
-                        for ($i = 1; $i <= 12; $i++)
+                        foreach ($menesiai as $i)
                             $data[$i] = 0;
+
                         foreach ($padalinys as $menuo => $valandos){
-                            $data[$menuo] = $valandos;
+                            $data[$menesiai[$menuo - 1]] = $valandos;
                         }
                         
                         //tikrinama ar rastas padalinys yra rodomu padaliniu sarase
@@ -291,7 +296,9 @@
                         }
                     }
                     else
-                        $rodomosIs = explode(",", repairSqlInjection($_GET["is"]));             
+                        $rodomosIs = explode(",", repairSqlInjection($_GET["is"]));      
+
+                    $menesiai = OrganizacijosPrognozes::getPrognozuojamiMenesiai();                    
 
                     $chartTitles = array();
                     $chartLineColors = array();
@@ -299,10 +306,10 @@
                         $data = array();
                         
                         //inicializuojam kiekvieno menesio kiekius
-                        for ($i = 1; $i <= 12; $i++)
+                        foreach ($menesiai as $i)
                             $data[$i] = 0;
                         foreach ($is as $menuo => $valandos){
-                            $data[$menuo] = $valandos;
+                            $data[$menesiai[$menuo - 1]] = $valandos;
                         }
                         
                         //tikrinama ar rastas padalinys yra rodomu padaliniu sarase

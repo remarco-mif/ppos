@@ -36,7 +36,7 @@ class AdminPage extends HTMLPage{
                         <ul>
                             <li class="current_page_item"><a href="?info=admin/duom_anal">Duomenų analizė</a></li>
                             <li><a href="?info=admin/prognozes">Prognozės</a></li>
-                            <li><a href="?info=admin/import">Importuoti duomenys</a></li>
+                            <li><a href="?info=admin/import">Importuoti duomenis</a></li>
                             <li><a href="?info=admin/vartotojai">Vartotojai</a></li>
                             <li><a href="?info=admin/logout">Atsijungti</a></li>
                             <li><a href="#">Pagalba</a></li>

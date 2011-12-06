@@ -529,7 +529,7 @@ a:hover {
     font-size:10px;
     color:white;
     border-style:solid;
-    border-width:1px;
+    border-width:3px;
     border-color:black;
     font-weight:bold;
     cursor:pointer;
@@ -541,7 +541,7 @@ a:hover {
     font-size:10px;
     color:white;
     border-style:solid;
-    border-width:1px;
+    border-width:3px;
     border-color:black;
     font-weight:bold;
     cursor:pointer;
