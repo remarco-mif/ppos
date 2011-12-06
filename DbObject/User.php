@@ -17,7 +17,7 @@
             return $this->receiveFromDb("Admin", $this->tableName, $this->tableID);
         }
         
-        static public function insertToDB($username, $password){
+        static public function insertToDB($username, $password, $admin){
             if(!UserValidation::validateUsername($username)){
                 User::$error = "Incorect username.";
                 return false;
@@ -29,11 +29,11 @@
 
             $username = repairSqlInjection($username);
             $password = repairSqlInjection($password);
-            $email = repairSqlInjection($email);
+            $admin = (int)$admin;
 
-            $result = mysql_query("INSERT INTO `PPOS`.`User` (`idUser`, `username`, `password`) VALUES (null, '".$username."', '".$password."')");
+            $result = mysql_query("INSERT INTO `PPOS`.`User` (`idUser`, `username`, `password`, `Admin`) VALUES (null, '".$username."', '".$password."', '".$admin."')");
             if(!$result){
-                ErrorMessages::setError(9, "insertToDB('".$username."', '".$password."', '".$email."')", "User.php", "User");
+                ErrorMessages::setError(9, "insertToDB('".$username."', '".$password."', '".$admin."')", "User.php", "User");
                 User::$error = mysql_error();
                 return false;
             }else{

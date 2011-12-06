@@ -3,9 +3,18 @@
 class Users extends MainPanel{
     
     private $users = "";
+    private $error = "";
     
     public function __construct(){
         $this->getUsers();
+        if(Message::isMessage()){
+            $this->error = Message::getMessge();
+            $this->error =<<<FFF
+                <div class="post">
+                    <p>{$this->error}</p>
+                </div>
+FFF;
+        }
     }
     
     private function getUsers(){
@@ -15,7 +24,7 @@ class Users extends MainPanel{
             $this->users .=<<<FFF
                 <tr id="{$user->getId()}user">
                     <td class="name">{$user->getUsername()}</td>
-                    <td><a href="#">Trinti</a></td>
+                    <td><span class="delUser" userid="{$user->getId()}">Trinti</span></td>
                 </tr>
 FFF;
         }
@@ -23,6 +32,7 @@ FFF;
     
     protected function htmlContent(){
         $this->content = <<<FFF
+                {$this->error}
                 <div class="post">
                 <p>Vartotojai</p>
                 <table width="100%">

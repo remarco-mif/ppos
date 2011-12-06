@@ -7,7 +7,7 @@ class UserManage extends MainPanel{
         <li>
             <h2>Valdymas:</h2>
             <ul style="font-size:10px;">
-                <li><a href="#">Prideti vartotoja</a></li>
+                <li><a href="?info=admin/add_var">Prideti vartotoja</a></li>
             </ul>
         </li>
 FFF;

@@ -21,6 +21,7 @@
     include("WebObjects/Panels/Right/Lenteles.php");
     include("WebObjects/Panels/Right/Import.php");
     include("WebObjects/Panels/Right/Users.php");
+    include("WebObjects/Panels/Right/AddUser.php");
     
     if(ErrorMessages::isErrors()){
         p(ErrorMessages::getErrors());

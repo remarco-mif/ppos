@@ -53,6 +53,13 @@ class ManageAdmin {
         $page->pagePrint();
     }
     
+    public function add_var(){
+        $page = new AdminPage();
+        $panel = new AddUser();
+        $page->addToContainer(1, $panel->getHtml());
+        $page->pagePrint();
+    }
+    
     public function login(){
         $manager = new ManageHome("login", false);
         $manager->login();
