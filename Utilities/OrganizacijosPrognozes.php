@@ -219,9 +219,67 @@
             return($prognozes);
         }
         
-        static public function getTinkamiausiasLaikasIsAtnaujimui($idIs)
-        {
+        /*
+            Grazina menesio numeri, kuomet IS yra maziausiai uzimta.
+        */
+        static public function getTinkamiausiasLaikasIsAtnaujimui($idIs){
+            $paramosPriemones = ParamosPriemones::select("1");
+            $isValandos = self::getIsValandos($paramosPriemones);
             
+            $minValandos = -1;
+            $minMenuo = -1;
+            foreach ($isValandos[$idIs] as $menuo => $valandos){
+                if (($valandos < $minValandos) || ($minValandos == -1)){
+                    $minValandos = $valandos;
+                    $minMenuo = $menuo;
+                }
+            }
+            
+            return($minMenuo);
+        }
+        
+        /*
+            Grazina menesio numeri, kuomet padalinys yra maziausiai uzimtas.
+        */
+        static public function getTinkamiausiasLaikasPadalinioKvalifikacijai($idPadalinys){
+            $paramosPriemones = ParamosPriemones::select("1");
+            $padaliniuValandos = self::getPadaliniuValandos($paramosPriemones);
+            
+            $minValandos = -1;
+            $minMenuo = -1;
+            foreach ($padaliniuValandos[$idPadalinys] as $menuo => $valandos){
+                if (($valandos < $minValandos) || ($minValandos == -1)){
+                    $minValandos = $valandos;
+                    $minMenuo = $menuo;
+                }
+            }
+            
+            return($minMenuo);
+        }
+        
+        /*
+            Grazina menesiu numerius, kuomet geriausia daryti padalinio patalpu remonta.
+        */
+        static public function getTinkamiausiasLaikasPadalinioRemontui($idPadalinys){
+            $paramosPriemones = ParamosPriemones::select("1");
+            $padaliniuValandos = self::getPadaliniuValandos($paramosPriemones);
+
+            $minValandos = ($padaliniuValandos[$idPadalinys][12] + $padaliniuValandos[$idPadalinys][1]) / 2;
+            $minMenesiai = array(1, 12);
+            foreach ($padaliniuValandos[$idPadalinys] as $menuo => $valandos){
+                $kitasMenuo = array();
+                $kitasMenuo["value"] = next($padaliniuValandos[$idPadalinys]);
+                $kitasMenuo["key"] = key($padaliniuValandos[$idPadalinys]);
+                print("next: " . $kitasMenuo["value"] . "<br>");
+                $vidurkis = ($valandos + $kitasMenuo["value"]) / 2;
+                prev($padaliniuValandos[$idPadalinys]);
+                if ($vidurkis < $minValandos){
+                    $minVidurkis = $vidurkis;
+                    $minMenesiai = array($menuo, $kitasMenuo["key"]);
+                }
+            }
+            
+            return($minMenesiai);
         }
         
         /*
@@ -229,17 +287,17 @@
             
             $menesiai: Array
             (
-                [0] => "2012-01"
-                [1] => "2012-02"
+                [6] => "2012-06"
+                [12] => "2012-12"
             )
         */
-        static public function getPrognozuojamiMenesiai()
-        {
+        static public function getPrognozuojamiMenesiai(){
             $menesiai = array();
-            $menuo = date('Y-m-d');
+            $data = date('Y-m-d');
             for ($i = 1; $i <= 12; $i++){
-                $menuo = date('Y-m', strtotime("$menuo + 1 months"));
-                $menesiai[] = $menuo;
+                $data = date('Y-m', strtotime("$data + 1 months"));
+                $menuo = (int)date('m', strtotime("$data"));
+                $menesiai[$menuo] = $data;
             }
             
             return($menesiai);
