@@ -32,8 +32,10 @@ class ManageAdmin {
         $page = new AdminPage();
         $panel = new Prognozes();
         $panel1 = new Lenteles();
+        $panel2 = new TvarkymoPrognozavimas();
         $page->addToContainer(1, $panel1->getHtml());
         $page->addToContainer(2, $panel->getHTML());
+        $page->addToContainer(2, $panel2->getHtml());
         $page->pagePrint();
     }
     
@@ -59,6 +61,13 @@ class ManageAdmin {
         $page->addToContainer(1, $panel->getHtml());
         $page->pagePrint();
     }
+    
+    public function laikas(){
+            $page = new AdminPage();
+            $panel = new TvarkymoPrognozavimas();
+            $page->addToContainer(2, $panel->getHtml());
+            $page->pagePrint();
+        }
     
     public function login(){
         $manager = new ManageHome("login", false);

@@ -29,7 +29,7 @@ class Login extends HTMLPage{
         </head>
         <body>
             <div id="wrapper">
-                <div id="header" class="container" style="padding-bottom:50px">
+                <div id="header" class="container" style="padding-bottom:50px; height:200px;">
                     <div id="logo">
                         <h1><a href="#">PPOS</a></h1>
                         <p>Paramos priemonių organizavimo sistema</p>

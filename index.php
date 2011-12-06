@@ -18,6 +18,7 @@
     include("WebObjects/Panels/Left/Prognozes.php");
     include("WebObjects/Panels/Left/Filters.php");
     include("WebObjects/Panels/Left/UserManage.php");
+    include("WebObjects/Panels/Left/TvarkymoPrognozavimas.php");
     include("WebObjects/Panels/Right/Lenteles.php");
     include("WebObjects/Panels/Right/Import.php");
     include("WebObjects/Panels/Right/Users.php");

@@ -212,6 +212,36 @@ function zoomOut(chartType){
 
 function ready() {
     
+    $(".dropDownMenu").live("mouseover", function(){
+        $(this).css("position", "absolute");
+        var kids = $(this).children();
+        $(kids[1]).css("display", "block");
+    });
+    
+    $(".dropDownMenu").live("mouseout", function(){
+        var kids = $(this).children();
+        $(kids[1]).css("display", "none");
+        $(this).css("position", "static");
+    });
+    
+    $(".dropDownButtons > li").click(function(){
+        var text = $(this).text();
+        var dropbox = $(this).parent().parent();
+        var kids = $(dropbox).children();
+        var tipas = $(dropbox).attr("tipas");
+        var id = $(this).attr("objectid");
+        $(kids[0]).text(text);
+        $(kids[1]).css("display", "none");
+        $(dropbox).css("position", "static");
+        $("#messageTvarkymui").text("Prašome palaukti...");
+        $.ajax({
+            url: "AjaxActions/User/PadaliniuIrIsTavarkymas.php?tipas=" + tipas + "&id=" + id,
+            success: function(data){
+                $("#messageTvarkymui").text(data);
+            }
+        });
+    });
+    
     $("#menu a").live("mouseenter", function(){
         var hintas = $(this).attr("hintas");
         $("#hint").text(hintas);

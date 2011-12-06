@@ -316,7 +316,6 @@ a:hover {
 #sidebar li li {
 	line-height: 35px;
 	border-bottom: 1px dotted #E7E2DC;
-	background: url(images/img02.jpg) no-repeat left 15px;
 	margin: 0px 30px;
 	border-left: none;
 }
@@ -627,4 +626,54 @@ div.hintPanel{
     font-size: 12px;
     line-height: 10px;
     
+}
+
+.dropDownMenu{
+    border-style: solid;
+    border-color: black;
+    border-width: 1px;
+    width:200px;
+    position:static;
+    background-color:white;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 20px;
+}
+
+.dropDownButtons{
+    display: none;
+    list-style-type:none !important;
+    padding-left: 0px;
+    padding-bottom: 0px !important;
+}
+
+.dropDownButtons > li{
+    margin-left: 0px !important;
+    margin-right: 0px !important;
+    border:none !important;
+    line-height: 25px !important;
+    font-size: 11px;
+}
+
+.dropDownButtons > li:hover{
+    background-color:#CA4C44 !important;
+    color:white !important;
+    cursor:pointer !important;
+}
+
+.dropDownVisualButton{
+    text-align:center !important;
+    margin-bottom: 0px;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+}
+
+#messageTvarkymui{
+    font-size:10px; 
+    margin-top:15px !important;
+    padding-left: 20px !important;
 }

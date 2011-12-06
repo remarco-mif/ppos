@@ -37,6 +37,11 @@
             $page->pagePrint();
         }
         
+        public function laikas(){
+            $page = new Page();
+            $page->pagePrint();
+        }
+        
         public function login(){
             $page = new Login();
             $page->pagePrint();

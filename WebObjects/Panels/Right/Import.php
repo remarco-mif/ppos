@@ -13,6 +13,11 @@ class Import extends MainPanel{
                 <iframe id="uploadTarget" src="" style="width:500px; height:100px; border:0px solid #fff;"></iframe>
             </div>
         </div>
+        <div class="post">
+            <div class="entry">
+                
+            </div>
+        </div>
 FFF;
     }
     
