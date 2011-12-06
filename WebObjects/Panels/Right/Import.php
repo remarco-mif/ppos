@@ -7,8 +7,10 @@ class Import extends MainPanel{
         <div class="post">
             <div class="entry">
                 <p>Importuoti duomenis:</p>
-                <p><input type="file" /></p>
-                <p class="links"><input type="Button" class="more" value="Importuoti" /></p>
+                <form id="ImporterForm" enctype="multipart/form-data" action="AjaxActions/Admin/Import.php" method="post">
+                <p><input type="file" id="importas" name="file" /></p>
+                <p><input type="submit" class="more" value="Importuoti" /></p>
+                <iframe id="uploadTarget" src="" style="width:500px; height:100px; border:0px solid #fff;"></iframe>
             </div>
         </div>
 FFF;
