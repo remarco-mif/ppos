@@ -34,13 +34,15 @@ class AdminPage extends HTMLPage{
                 <div id="header" class="container">
                     <div id="menu">
                         <ul>
-                            <li class="current_page_item"><a href="?info=admin/duom_anal">Duomenų analizė</a></li>
-                            <li><a href="?info=admin/prognozes">Prognozės</a></li>
-                            <li><a href="?info=admin/import">Importuoti duomenis</a></li>
-                            <li><a href="?info=admin/vartotojai">Vartotojai</a></li>
-                            <li><a href="?info=admin/logout">Atsijungti</a></li>
-                            <li><a href="#">Pagalba</a></li>
+                            <li><a hintas="Pateikti priemones, leidžiančias pateikti ataskaitoje padalinių ir IS apkrovimą." href="?info=admin/duom_anal">Duomenų analizė</a></li>
+                            <li><a hintas="Pateikti priemones, leidžiančias parodyti planuojamos (vienos ar net kelių) paramos priemonių poveikį IS ir padalinių apkrovimui." href="?info=admin/prognozes">Prognozės</a></li>
+                            <li><a hintas="Pateikia priemones, leidžiančias importuoti duomenis iš .xsl failo." href="?info=admin/import">Importuoti duomenis</a></li>
+                            <li><a hintas="Pateikia priemones, leidžiančias sukurti naują arba ištrinti jau esama vartotoją." href="?info=admin/vartotojai">Vartotojai</a></li>
+                            <li><a hintas="Atsijungia nuo sistemos." href="?info=admin/logout">Atsijungti</a></li>
                         </ul>
+                    </div>
+                    <div class="hintPanel">
+                        <p id="hint"></p>
                     </div>
                 </div>
                 <!-- end #header -->

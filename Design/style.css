@@ -63,7 +63,7 @@ a:hover {
 
 #header {
 	width: 900px;
-	height: 150px;
+	height: auto;
 	margin: 0px auto;
 	padding: 0px 50px;
 	background: url(images/img01.jpg) no-repeat left top, url(images/img03.jpg) repeat-y left top;
@@ -192,6 +192,7 @@ a:hover {
 
 #menu a:hover, #menu .current_page_item a {
 	text-decoration: none;
+        color:red;
 }
 
 #menu .current_page_item a {
@@ -521,6 +522,7 @@ a:hover {
 .tdPav{
     width:16%;
     cursor:pointer;
+    color:red;
 }
 
 #Pad > span{
@@ -610,4 +612,19 @@ span.delUser{
 
 #importas{
     color:red;
+}
+
+div.hintPanel{
+    margin-top: 38px;
+    height:30px;
+    overflow:hidden;
+}
+
+#hint{
+    padding: 0;
+    margin-bottom: 0px;
+    margin-left: 20px;
+    font-size: 12px;
+    line-height: 10px;
+    
 }

@@ -15,11 +15,11 @@ class AddUser extends MainPanel{
                         </tr>
                         <tr>
                             <td>Slaptažodis: </td>
-                            <td><input type="text" name="pass" /></td>
+                            <td><input type="password" name="pass" /></td>
                         </tr>
                         <tr>
                             <td>Pakartoti slaptažodį: </td>
-                            <td><input type="text" name="pass1" /></td>
+                            <td><input type="password" name="pass1" /></td>
                         </tr>
                         <tr>
                             <td>Vartotojas</td>
