@@ -3,6 +3,10 @@ var img1_height = 200;
 var img2_width = 548;
 var img2_height = 200;
 
+function fileUpload(){
+    
+}
+
 function validateDate(strDate){
    if (new Date(strDate) == "Invalid Date")
        return false;
@@ -207,29 +211,31 @@ function zoomOut(chartType){
 })();
 
 function ready() {
+    
+    $("#ImporterForm").submit(function(){
+        this.target = "uploadTarget";
+    });
    
     // User delete
     $("span.delUser").click(function(){
-        var id = $(this).attr("userid");
-        var elem = this;
+        if(confirm("Ar tikrai norite ištrinti?")){
+            var id = $(this).attr("userid");
+            var elem = this;
 
-        $.ajax({
-            url: "AjaxActions/Admin/DeleteUser.php?id=" + id,
-            success: function(data){
-                var mas = data.split(":::", 2);
-                if(mas[0] == "true"){
-                    $(elem).parent().parent().remove();
-                }else{
-                    var kids = $(elem).parent().parent().children();
-                    var text = $(kids[0]).text();
-                    $(kids[0]).text(text + " " + mas[1])
+            $.ajax({
+                url: "AjaxActions/Admin/DeleteUser.php?id=" + id,
+                success: function(data){
+                    var mas = data.split(":::", 2);
+                    if(mas[0] == "true"){
+                        $(elem).parent().parent().remove();
+                    }else{
+                        var kids = $(elem).parent().parent().children();
+                        var text = $(kids[0]).text();
+                        $(kids[0]).text(text + " " + mas[1])
+                    }
                 }
-            }
-        });
-
-//        var kids = $(this).parent().parent().children();
-//        var text = $(kids[0]).text();
-//        $(kids[0]).text(text + " Error!!!");
+            });
+        }
     });
     
     // Paspaudus ant paramos priemones
