@@ -3,11 +3,36 @@
 class ParamosPriemoniuPrognoziuLentele extends MainPanel{
     
     private $ParamosPriemonesPrognozes = "";
+    private $prognozuojamiMenesiai = "";
     
     public function __construct($paramosPriemoniuPrognozes){
+        $this->progMen();
         foreach($paramosPriemoniuPrognozes as $p){
             $this->ParamosPriemonesPrognozes .= $this->getPriemonesPrognozes($p);
         }
+    }
+    
+    private function progMen(){
+        
+        $h = "";
+        foreach(OrganizacijosPrognozes::getPrognozuojamiMenesiai() as $men1){
+            $men = <<<FFF
+                <td class="menTd">
+                    <svg width="12px" height="50px" xmlns='http://www.w3.org/2000/svg'>
+                        <text x='-40' y='10' font-family='Tahoma' font-size='12' transform='rotate(-90)' text-rendering='optimizeSpeed' fill='#888'>{$men1}</text>
+                    </svg> 
+                </td>
+FFF;
+            $h .= $men;
+        }
+        
+        $a =<<<FFF
+            <tr>
+                <td class="tdPavv"><b>Priemonė</b></td>
+                {$h}
+            </tr>
+FFF;
+        $this->prognozuojamiMenesiai = $a;
     }
     
     private function getPriemonesPrognozes($ParamosPriemone){
@@ -39,25 +64,7 @@ FFF;
         <div class="post">
             <p style="color:#CA4C44;">Administravimo sąnaudos paramos priemonėms valandomis:</p>
             <table width="100%" cellpadding="0px" cellspacing="0px">
-                <tr>
-                    <td class="tdPavv"><b>Priemonė</b></td>
-                    <td class="menTd">
-                        <svg width="12px" height="40px" xmlns='http://www.w3.org/2000/svg'>
-                            <text x='-40' y='10' font-family='Tahoma' font-size='12' transform='rotate(-90)' text-rendering='optimizeSpeed' fill='#888'>2001-02</text>
-                        </svg> 
-                    </td>
-                    <td class="menTd"><b>02</b></td>
-                    <td class="menTd"><b>03</b></td>
-                    <td class="menTd"><b>04</b></td>
-                    <td class="menTd"><b>05</b></td>
-                    <td class="menTd"><b>06</b></td>
-                    <td class="menTd"><b>07</b></td>
-                    <td class="menTd"><b>08</b></td>
-                    <td class="menTd"><b>09</b></td>
-                    <td class="menTd"><b>10</b></td>
-                    <td class="menTd"><b>11</b></td>
-                    <td class="menTd"><b>12</b></td>
-                </tr>
+                {$this->prognozuojamiMenesiai}
                 {$this->ParamosPriemonesPrognozes}
             </table>
         </div>
