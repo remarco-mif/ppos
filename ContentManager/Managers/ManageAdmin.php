@@ -20,7 +20,7 @@ class ManageAdmin {
     public function duom_anal(){
         $page = new AdminPage();
         $panel = new DuomenuAnalizePanel();
-        $panel1 = new Lenteles();
+        $panel1 = new Lenteles1();
         $panel2 = new Filters();
         $page->addToContainer(1, $panel1->getHtml());
         $page->addToContainer(2, $panel->getHtml());

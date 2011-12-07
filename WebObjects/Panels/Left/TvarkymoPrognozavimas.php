@@ -30,6 +30,7 @@ class TvarkymoPrognozavimas extends MainPanel{
     protected function htmlContent(){
         $this->content = <<<FFF
         <li style="padding-top:20px;">
+            <h2>Tinkamiausi laikai:</h2>
             <div style="height:40px;">
                 <div tipas="padaliniai" class="dropDownMenu">
                     <p class="dropDownVisualButton">Padalinys</p>

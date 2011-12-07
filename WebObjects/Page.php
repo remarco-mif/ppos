@@ -35,10 +35,13 @@ class Page extends HTMLPage{
                 <div id="header" class="container">
                     <div id="menu">
                         <ul>
-                            <li><a href="?info=home/duom_anal">Duomenų analizė</a></li>
-                            <li><a href="?info=home/prognozes">Prognozės</a></li>
-                            <li><a href="?info=home/logout">Atsijungti</a></li>
+                            <li><a hintas="Pateikiamos padalinių ir IS apkrovimo ataskaitos." href="?info=home/duom_anal">Duomenų analizė</a></li>
+                            <li><a hintas="Planuoja (vienos ar net kelių) paramos priemonių poveikį IS ir padalinių apkrovimui." href="?info=home/prognozes">Prognozės</a></li>
+                            <li><a hintas="Atsijungia nuo sistemos." href="?info=home/logout">Atsijungti</a></li>
                         </ul>
+                    </div>
+                    <div class="hintPanel">
+                        <p id="hint"></p>
                     </div>
                 </div>
                 <!-- end #header -->

@@ -20,13 +20,14 @@
     include("WebObjects/Panels/Left/UserManage.php");
     include("WebObjects/Panels/Left/TvarkymoPrognozavimas.php");
     include("WebObjects/Panels/Right/Lenteles.php");
+    include("WebObjects/Panels/Right/Lenteles1.php");
     include("WebObjects/Panels/Right/Import.php");
     include("WebObjects/Panels/Right/Users.php");
     include("WebObjects/Panels/Right/AddUser.php");
     
-    if(ErrorMessages::isErrors()){
-        p(ErrorMessages::getErrors());
-    }
+//    if(ErrorMessages::isErrors()){
+//        p(ErrorMessages::getErrors());
+//    }
     
     $GLOBALS['login'] = new Session();
     $pageManager = new Manager();

@@ -233,11 +233,11 @@ function ready() {
         $(kids[0]).text(text);
         $(kids[1]).css("display", "none");
         $(dropbox).css("position", "static");
-        $("#messageTvarkymui").text("Prašome palaukti...");
+        $("#messageTvarkymui").html("Prašome palaukti...");
         $.ajax({
             url: "AjaxActions/User/PadaliniuIrIsTavarkymas.php?tipas=" + tipas + "&id=" + id,
             success: function(data){
-                $("#messageTvarkymui").text(data);
+                $("#messageTvarkymui").html(data);
             }
         });
     });

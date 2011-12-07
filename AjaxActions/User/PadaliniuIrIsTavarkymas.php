@@ -28,9 +28,15 @@
     $men = OrganizacijosPrognozes::getPrognozuojamiMenesiai();
     
     if($tipas == "IS"){
-        echo "Tinkamiausia atnaujinti IS: ".$men[OrganizacijosPrognozes::getTinkamiausiasLaikasIsAtnaujimui($id)];
+        echo "Tinkamiausias laikas IS atnaujinti: ".$men[OrganizacijosPrognozes::getTinkamiausiasLaikasIsAtnaujimui($id)];
     }else{
-        echo "Tinkamiausias laikas padalinio kvalifikacijai kelti: ".$men[OrganizacijosPrognozes::getTinkamiausiasLaikasPadalinioKvalifikacijai($id)]; //."\nTinkamiausias laikas padaliniui remontuoti: ".$men[OrganizacijosPrognozes::getTinkamiausiasLaikasPadalinioRemontui($id)];
+        $kval = $men[OrganizacijosPrognozes::getTinkamiausiasLaikasPadalinioKvalifikacijai($id)];
+        $rem = "";
+        foreach(OrganizacijosPrognozes::getTinkamiausiasLaikasPadalinioRemontui($id) as $menesis){
+            $rem .= $men[$menesis].", ";
+        }
+        $rem = substr($rem, 0, -2);
+        echo "Tinkamiausias laikas padalinio kvalifikacijai kelti: <br />".$kval."<br /><br />Tinkamiausias laikas padaliniui remontuoti: <br />".$rem;
     }
 
 ?>

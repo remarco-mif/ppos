@@ -20,7 +20,7 @@
         public function duom_anal(){
             $page = new Page();
             $panel = new DuomenuAnalizePanel();
-            $panel1 = new Lenteles();
+            $panel1 = new Lenteles1();
             $panel2 = new Filters();
             $page->addToContainer(1, $panel1->getHtml());
             $page->addToContainer(2, $panel->getHtml());
@@ -32,13 +32,10 @@
             $page = new Page();
             $panel = new Prognozes();
             $panel1 = new Lenteles();
+            $panel2 = new TvarkymoPrognozavimas();
             $page->addToContainer(1, $panel1->getHtml());
             $page->addToContainer(2, $panel->getHTML());
-            $page->pagePrint();
-        }
-        
-        public function laikas(){
-            $page = new Page();
+            $page->addToContainer(2, $panel2->getHtml());
             $page->pagePrint();
         }
         
