@@ -37,7 +37,8 @@ class Page extends HTMLPage{
                         <ul>
                             <li><a hintas="Pateikiamos padalinių ir IS apkrovimo ataskaitos." href="?info=home/duom_anal">Duomenų analizė</a></li>
                             <li><a hintas="Planuoja (vienos ar net kelių) paramos priemonių poveikį IS ir padalinių apkrovimui." href="?info=home/prognozes">Prognozės</a></li>
-                            <li><a hintas="Atsijungia nuo sistemos." href="?info=home/logout">Atsijungti</a></li>
+                            <li><a hintas="Atjungia nuo sistemos." href="?info=home/logout">Atsijungti</a></li>
+                            <li><a hintas="Parodo pagalbą esamam langui" href="?info=home/help">Help</a></li>
                         </ul>
                     </div>
                     <div class="hintPanel">

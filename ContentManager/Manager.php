@@ -8,6 +8,8 @@ class Manager {
     public $method = "login";
     public $arguments = array();
     
+    public $currentlySelected = "login";
+    
     private $classArray = array('home'  => 'ManageHome',
                                 'admin' => 'ManageAdmin');
     
@@ -22,7 +24,14 @@ class Manager {
         }
         
         if(isset($contentVars[1])){
+            //setcookie("newrandomcookie", $this->method);
+            
+            if ($contentVars[1] != "help") {
+                setcookie("cookie[previous]", $contentVars[1]);
+            }
+            
             $this->method = $contentVars[1];
+            
         }
         
         if(isset($contentVars[2])){

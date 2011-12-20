@@ -22,6 +22,7 @@
     include("WebObjects/Panels/Right/Lenteles.php");
     include("WebObjects/Panels/Right/Lenteles1.php");
     include("WebObjects/Panels/Right/Import.php");
+    include("WebObjects/Panels/Right/Help.php");
     include("WebObjects/Panels/Right/Users.php");
     include("WebObjects/Panels/Right/AddUser.php");
     

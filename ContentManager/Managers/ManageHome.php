@@ -51,6 +51,10 @@
             $this->login();
         }
         
+        public function help(){
+            $page = new Help();
+            $page->pagePrint();
+        }
     }
 
 ?>

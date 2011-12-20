@@ -38,7 +38,8 @@ class AdminPage extends HTMLPage{
                             <li><a hintas="Planuoja (vienos ar net kelių) paramos priemonių poveikį IS ir padalinių apkrovimui." href="?info=admin/prognozes">Prognozės</a></li>
                             <li><a hintas="Importuoti duomenis iš .xsl failo." href="?info=admin/import">Importuoti duomenis</a></li>
                             <li><a hintas="Leidžia sukurti naują arba ištrinti jau esama vartotoją." href="?info=admin/vartotojai">Vartotojai</a></li>
-                            <li><a hintas="Atsijungia nuo sistemos." href="?info=admin/logout">Atsijungti</a></li>
+                            <li><a hintas="Atjungia nuo sistemos." href="?info=admin/logout">Atsijungti</a></li>
+                            <li><a hintas="Parodo pagalbą esamam langui" href="?info=admin/help">Help</a></li>
                         </ul>
                     </div>
                     <div class="hintPanel">

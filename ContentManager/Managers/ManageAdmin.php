@@ -79,6 +79,10 @@ class ManageAdmin {
         $manager->logout();
     }  
     
+    public function help(){
+        $page = new Help();
+        $page->pagePrint();
+    }
 }
 
 ?>
