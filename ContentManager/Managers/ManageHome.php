@@ -5,9 +5,10 @@
         public function __construct($method, $checkType = true){
             if($checkType == true){
                 if(isset($GLOBALS['login']->user)){
-                    if($GLOBALS['login']->user->isAdmin()){
-                        header("location: index.php?info=admin/".$method);
-                    }
+                    if ($GLOBALS['login']->isLogedin())
+                        if($GLOBALS['login']->user->isAdmin()){
+                            header("location: index.php?info=admin/".$method);
+                        }
                 }
             }
         }

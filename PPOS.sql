@@ -204,3 +204,12 @@ SELECT PadaliniuValanduKiekis.Nuo, `IS`.Kodas, `IS`.Pavadinimas, SUM(PadaliniuVa
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+-- -----------------------------------------------------
+-- Data for table `PPOS`.`User`
+-- -----------------------------------------------------
+START TRANSACTION;
+USE `PPOS`;
+INSERT INTO `PPOS`.`User` (`idUser`, `Username`, `Password`, `Admin`) VALUES (0, 'admin', 'admin', 1);
+
+COMMIT;
